@@ -1,17 +1,20 @@
 var canvas;
 var canvasContext;
-var nodeCount = 100
+var nodeCount = 100;
+var nodeSpeed = 1;
 var nodes = [];
+var width = 800;
+var height = 600;
 
 window.onload = function () {
 
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
-    canvasContext.canvas.width = 800;
-    canvasContext.canvas.height = 600;
+    canvasContext.canvas.width = width;
+    canvasContext.canvas.height = height;
 
     for (i = 0; i < nodeCount; i++){
-        nodes[i] = new GameObject(Math.random() * canvasContext.canvas.width, Math.random() * canvasContext.canvas.height, 10)
+        nodes[i] = new GameObject(Math.random() * width, Math.random() * height, nodeSpeed);
     }
 
     //loadImages();
@@ -32,13 +35,15 @@ function initRenderLoop() {
 }
 
 function moveEverything() {
-  
+    for (var node of nodes){
+        node.update();
+    }
 }
 
 function drawEverything() {
     colorRect(0, 0, canvas.width, canvas.height, 'black');
-    for (var n of nodes){
-        n.draw();
+    for (var node of nodes){
+        node.draw();
     }
 
 
