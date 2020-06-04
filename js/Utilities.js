@@ -4,35 +4,6 @@ function getPixelCoordFromAngleAndSpeed(startingX, startingY, angle, speed) {
     return [newX, newY];
 }
 
-function isWallTileAtPixelCoord(pixelX, pixelY) {
-
-    var levelTileCol = colAtXCoord(pixelX);
-    var levelTileRow = rowAtYCoord(pixelY);
-
-    if (levelTileCol < 0 || levelTileCol >= MAP_NUM_COLS || levelTileRow < 0 || levelTileRow >= MAP_NUM_ROWS) {
-        return false;
-    }
-
-    return isWallTileAtLevelTileCoord(levelTileCol, levelTileRow);
-}
-
-function colAtXCoord(pixelX) {
-    return Math.floor(pixelX / TILE_SIZE);
-}
-
-function rowAtYCoord(pixelY) {
-    return Math.floor(pixelY / TILE_SIZE);
-}
-
-function isWallTileAtLevelTileCoord(levelTileCol, levelTileRow) {
-    var levelTileIndex = levelTileIndexAtColRowCoord(levelTileCol, levelTileRow);
-    return (grid.grid[levelTileIndex] > 0);
-}
-
-function levelTileIndexAtColRowCoord(tileCol, tileRow) {
-    return (tileCol + MAP_NUM_COLS * tileRow);
-}
-
 function normalizeAngle(angle){
     angle = angle % (2 * Math.PI);
     if (angle < 0){
@@ -48,5 +19,10 @@ function DistanceBetweenTwoPixelCoords(x1, y1, x2, y2) {
 
 function DistanceBetweenTwoObjects(o1, o2){
     distance = Math.floor(Math.hypot(Math.floor(o1.x) - Math.floor(o2.x), Math.floor(o1.y) - Math.floor(o2.y)))
+    return distance;
+}
+
+function DistanceBetweenTwoObjectsNextFrame(o1, o2){
+    distance = Math.floor(Math.hypot(Math.floor(o1.xNextFrame) - Math.floor(o2.xNextFrame), Math.floor(o1.yNextFrame) - Math.floor(o2.yNextFrame)))
     return distance;
 }

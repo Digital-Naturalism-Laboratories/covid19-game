@@ -1,10 +1,12 @@
 var canvas;
 var canvasContext;
-var nodeCount = 100;
+var nodeCount = 50;
 var nodeSpeed = 1;
 var nodes = [];
 var width = 800;
 var height = 600;
+var bottomPanelHeight = 100;
+var percentChanceToTransmit = 50;
 
 window.onload = function () {
 
@@ -14,7 +16,23 @@ window.onload = function () {
     canvasContext.canvas.height = height;
 
     for (i = 0; i < nodeCount; i++){
-        nodes[i] = new GameObject(Math.random() * width, Math.random() * height, nodeSpeed);
+        nodes[i] = new GameObject(Math.random() * width, (Math.random() * height) - bottomPanelHeight, nodeSpeed);
+
+        //Prevent nodes from spawning on the edge of the canvas.
+
+        //Prevent nodes from spawning on top of each other.
+        for (var node of nodes) {
+            while ((DistanceBetweenTwoObjects(nodes[i], node) < (nodes[i].radius + node.radius) && DistanceBetweenTwoObjects(nodes[i], node) != 0) || 
+            node.x < node.radius || 
+            node.x > (canvas.width - node.radius) ||
+            node.y < node.radius || 
+            node.y > (canvas.height - this.bottomPanelHeight - node.radius))
+            {
+                nodes[i].x = Math.random() * width;
+                nodes[i].y = Math.random() * height;
+            }
+        }
+
     }
 
     //loadImages();
@@ -38,6 +56,7 @@ function moveEverything() {
     for (var node of nodes){
         node.update();
     }
+    updateGraphData();
 }
 
 function drawEverything() {
@@ -45,6 +64,8 @@ function drawEverything() {
     for (var node of nodes){
         node.draw();
     }
+    colorRect(0, canvas.height - bottomPanelHeight, canvas.width, canvas.height, 'grey');
+    drawGraph();
 
 
 }
