@@ -11,6 +11,8 @@ var positiveGraphData = []
 var recoveredGraphData = []
 
 var graphXPos = 0;
+var graphTimeIncrement = 5 //frames
+var graphIncrementTimer = graphTimeIncrement;
 
 function updateGraphData() {
 
@@ -29,16 +31,32 @@ function updateGraphData() {
 
     negativeCount = nodeCount - positiveCount - recoveredCount;
 
-    percentTestingNegative = (negativeCount / nodeCount) * 100;
-    percentTestingPositive = (positiveCount / nodeCount) * 100;
-    percentRecovered = (recoveredCount / nodeCount) * 100;
+    percentTestingNegative = Math.floor((negativeCount / nodeCount) * 100);
+    percentTestingPositive = Math.floor((positiveCount / nodeCount) * 100);
+    percentRecovered = Math.floor((recoveredCount / nodeCount) * 100);
+
+    graphIncrementTimer--;
+    if (graphIncrementTimer <= 0){
+        negativeGraphData.push(percentTestingNegative);
+        positiveGraphData.push(percentTestingPositive);
+        recoveredGraphData.push(percentRecovered);
+        graphIncrementTimer = graphTimeIncrement;
+    }
 
 }
 
 function drawGraph() {
+
+    for (var i = 0; i < negativeGraphData.length; i++){
+        colorLine(i, canvas.height, i, canvas.height - positiveGraphData[i], "red");
+        colorLine(i, canvas.height - positiveGraphData[i], i, canvas.height - positiveGraphData[i] - negativeGraphData[i], "yellow");
+        colorLine(i, canvas.height - positiveGraphData[i] - negativeGraphData[i], i, canvas.height - positiveGraphData[i] - negativeGraphData[i] - recoveredGraphData[i], "green");
+        
+    }
+
     canvasContext.font = "12px Arial";
     canvasContext.fillStyle = "white";
-    canvasContext.fillText("Testing Negative " + percentTestingNegative, canvas.width - 125, canvas.height - 10);
-    canvasContext.fillText("Testing Positive " + percentTestingPositive, canvas.width - 125, canvas.height - 40);
-    canvasContext.fillText("Recovered " + percentRecovered, canvas.width - 125, canvas.height - 70);
+    canvasContext.fillText("Recovered " + percentRecovered + "%", canvas.width - 125, canvas.height - 70);
+    canvasContext.fillText("Testing Negative " + percentTestingNegative + "%", canvas.width - 125, canvas.height - 40);
+    canvasContext.fillText("Testing Positive " + percentTestingPositive + "%", canvas.width - 125, canvas.height - 10);
 }

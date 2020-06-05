@@ -1,6 +1,6 @@
 var canvas;
 var canvasContext;
-var nodeCount = 50;
+var nodeCount = 75;
 var nodeSpeed = 1;
 var nodes = [];
 var width = 800;
