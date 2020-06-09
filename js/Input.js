@@ -17,7 +17,7 @@ function handleClick(evt) {
         }
     }
 
-    if (distClosestNode <= 10){
+    if (distClosestNode <= baseTransmissionRadius){
         closestNode.masking = true;
     }
 
