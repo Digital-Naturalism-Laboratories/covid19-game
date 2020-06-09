@@ -1,12 +1,15 @@
 var canvas;
 var canvasContext;
-var nodeCount = 75;
-var nodeSpeed = 1;
+var nodeCount = 100;
+var nodeSpeed = 0.75;
 var nodes = [];
-var width = 800;
-var height = 600;
+var width = 400;
+var height = 640;
 var bottomPanelHeight = 100;
-var percentChanceToTransmit = 50;
+var basePercentChanceToTransmit = 0.1;
+var baseTransmissionRadius = 40;
+
+//var smile = "\ud83d\ude00";
 
 window.onload = function () {
 
@@ -62,10 +65,11 @@ function moveEverything() {
 function drawEverything() {
     colorRect(0, 0, canvas.width, canvas.height, 'black');
     for (var node of nodes){
+        node.drawTransmissionRadius();
+    }
+    for (var node of nodes){
         node.draw();
     }
     colorRect(0, canvas.height - bottomPanelHeight, canvas.width, canvas.height, 'grey');
     drawGraph();
-
-
 }

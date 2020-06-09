@@ -11,7 +11,7 @@ var positiveGraphData = []
 var recoveredGraphData = []
 
 var graphXPos = 0;
-var graphTimeIncrement = 5 //frames
+var graphTimeIncrement = 30 //frames
 var graphIncrementTimer = graphTimeIncrement;
 
 function updateGraphData() {
@@ -35,6 +35,8 @@ function updateGraphData() {
     percentTestingPositive = Math.floor((positiveCount / nodeCount) * 100);
     percentRecovered = Math.floor((recoveredCount / nodeCount) * 100);
 
+    percentTestingNegative += percentRecovered;
+
     graphIncrementTimer--;
     if (graphIncrementTimer <= 0){
         negativeGraphData.push(percentTestingNegative);
@@ -50,13 +52,13 @@ function drawGraph() {
     for (var i = 0; i < negativeGraphData.length; i++){
         colorLine(i, canvas.height, i, canvas.height - positiveGraphData[i], "red");
         colorLine(i, canvas.height - positiveGraphData[i], i, canvas.height - positiveGraphData[i] - negativeGraphData[i], "yellow");
-        colorLine(i, canvas.height - positiveGraphData[i] - negativeGraphData[i], i, canvas.height - positiveGraphData[i] - negativeGraphData[i] - recoveredGraphData[i], "green");
+        //colorLine(i, canvas.height - positiveGraphData[i] - negativeGraphData[i], i, canvas.height - positiveGraphData[i] - negativeGraphData[i] - recoveredGraphData[i], "yellow");
         
     }
 
-    canvasContext.font = "12px Arial";
+    canvasContext.font = "16px Arial";
     canvasContext.fillStyle = "white";
-    canvasContext.fillText("Recovered " + percentRecovered + "%", canvas.width - 125, canvas.height - 70);
-    canvasContext.fillText("Testing Negative " + percentTestingNegative + "%", canvas.width - 125, canvas.height - 40);
-    canvasContext.fillText("Testing Positive " + percentTestingPositive + "%", canvas.width - 125, canvas.height - 10);
+    //canvasContext.fillText("Recovered " + percentRecovered + "%", canvas.width - 125, canvas.height - 70);
+    canvasContext.fillText("\ud83d\ude00 " + percentTestingNegative + "%", canvas.width - 125, canvas.height - 40);
+    canvasContext.fillText("🤢 " + percentTestingPositive + "%", canvas.width - 125, canvas.height - 10);
 }
