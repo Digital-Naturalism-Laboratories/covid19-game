@@ -1,17 +1,3 @@
-function getPixelCoordFromAngleAndSpeed(startingX, startingY, angle, speed) {
-    var newX = startingX + Math.cos(angle) * speed;
-    var newY = startingY + Math.sin(angle) * speed;
-    return [newX, newY];
-}
-
-function normalizeAngle(angle){
-    angle = angle % (2 * Math.PI);
-    if (angle < 0){
-        angle += (2 * Math.PI);
-    }
-    return angle;
-}
-
 function DistanceBetweenTwoPixelCoords(x1, y1, x2, y2) {
     distance = Math.floor(Math.hypot(Math.floor(x1) - Math.floor(x2), Math.floor(y1) - Math.floor(y2)))
     return distance;

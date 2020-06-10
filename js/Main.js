@@ -9,8 +9,6 @@ var bottomPanelHeight = 100;
 var basePercentChanceToTransmit = 0.1;
 var baseTransmissionRadius = 40;
 
-//var smile = "\ud83d\ude00";
-
 window.onload = function () {
 
     canvas = document.getElementById('gameCanvas');
@@ -20,8 +18,6 @@ window.onload = function () {
 
     for (i = 0; i < nodeCount; i++){
         nodes[i] = new GameObject(Math.random() * width, (Math.random() * height) - bottomPanelHeight, nodeSpeed);
-
-        //Prevent nodes from spawning on the edge of the canvas.
 
         //Prevent nodes from spawning on top of each other.
         for (var node of nodes) {
@@ -38,9 +34,7 @@ window.onload = function () {
 
     }
 
-    //loadImages();
     initRenderLoop();
-
 }
 
 function initRenderLoop() {
@@ -50,9 +44,7 @@ function initRenderLoop() {
         moveEverything();
         drawEverything();
         
-
     }, 1000 / framesPerSecond);
-    //initInput();
 }
 
 function moveEverything() {
@@ -64,12 +56,14 @@ function moveEverything() {
 
 function drawEverything() {
     colorRect(0, 0, canvas.width, canvas.height, 'black');
+
     for (var node of nodes){
         node.drawTransmissionRadius();
     }
     for (var node of nodes){
         node.draw();
     }
+
     colorRect(0, canvas.height - bottomPanelHeight, canvas.width, canvas.height, 'grey');
     drawGraph();
 }

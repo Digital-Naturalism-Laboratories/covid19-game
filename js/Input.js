@@ -1,4 +1,4 @@
-document.addEventListener('touchstart', handleClick, false);
+document.addEventListener('touchstart', handleClick);
 document.addEventListener("mousedown", handleClick);
 
 function handleClick(evt) {
@@ -6,9 +6,9 @@ function handleClick(evt) {
     var xPos = evt.clientX - canvas.getBoundingClientRect().left;
     var yPos = evt.clientY - canvas.getBoundingClientRect().top;
 
-    var distClosestNode = null;
     var closestNode = null;
-
+    var distClosestNode = null;
+    
     for (node of nodes){
         var distThisNode = DistanceBetweenTwoPixelCoords(xPos, yPos, node.x, node.y);
         if (distThisNode < distClosestNode || distClosestNode == null){
@@ -18,12 +18,7 @@ function handleClick(evt) {
     }
 
     if (distClosestNode <= baseTransmissionRadius){
-        closestNode.masking = true;
+        closestNode.isMasking = true;
     }
-
-    console.log(distClosestNode);
-
-    //addedObject = new GameObject(xPos, yPos, nodeSpeed);
-    //nodes.push(addedObject);
 
   }
