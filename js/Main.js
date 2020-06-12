@@ -65,12 +65,15 @@ function drawEverything() {
     switch (gameState) {
         case 'start':
 
-            buttonPlay.draw();
-
             canvasContext.textAlign = 'center';
 
-            canvasContext.font = "100px Arial";
+            canvasContext.font = "40px Arial";
             canvasContext.fillStyle = "black";
+            canvasContext.fillText("Aplanar la Curva", canvas.width * 0.5, canvas.height * 0.25);
+
+            buttonPlay.draw();
+
+            canvasContext.font = "100px Arial";
             canvasContext.fillText("🤢", canvas.width * 0.30, canvas.height * 0.80);
             canvasContext.fillText("😷", canvas.width * 0.70, canvas.height * 0.80);
 
@@ -80,7 +83,6 @@ function drawEverything() {
             canvasContext.font = "30px Arial";
             canvasContext.fillText("➡️", canvas.width * 0.50, canvas.height * 0.765);
 
-            canvasContext.textAlign = 'left';
             break;
 
         case 'main':

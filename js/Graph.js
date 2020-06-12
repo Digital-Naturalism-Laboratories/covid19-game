@@ -77,6 +77,7 @@ function drawGraph() {
 
     canvasContext.font = "16px Arial";
     canvasContext.fillStyle = "black";
+    canvasContext.textAlign = 'left';
     //canvasContext.fillText("Recovered " + percentRecovered + "%", canvas.width - 125, canvas.height - 70); //Recovered data on graph disabled. May add back later.
     canvasContext.fillText("🙂 " + percentTestingNegative + "%", 20, canvas.height - 75);
     canvasContext.fillText("🤢 " + percentTestingPositive + "%", 20, canvas.height - 45);
@@ -95,6 +96,7 @@ function drawAllGraphs() {
             //colorLine(i, canvas.height - positiveGraphData[i] - negativeGraphData[i], i, canvas.height - positiveGraphData[i] - negativeGraphData[i] - recoveredGraphData[i], "yellow"); //Recovered data on graph disabled. May add back later.
             canvasContext.font = "16px Arial";
             canvasContext.fillStyle = "black";
+            canvasContext.textAlign = 'left';
             canvasContext.fillText(allNegativeGraphData.length - (j - 1), 10, 20 + ((j - 1) * bottomPanelHeight));
 
             canvasContext.fillText("🙂 " + allPercentTestingNegative[allNegativeGraphData.length - j] + "%", 20, bottomPanelHeight * (j - 1) + 25);

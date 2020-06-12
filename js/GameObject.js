@@ -27,7 +27,9 @@ class GameObject {
 
     draw() {
         canvasContext.font = "16px Arial";
-        canvasContext.fillText(this.emoji, this.x - (this.radius * 1.33), this.y + (this.radius * 0.66));
+        canvasContext.textAlign = 'center';
+        canvasContext.fillText(this.emoji, this.x, this.y + (this.radius * 0.75));
+        
     }
 
     drawTransmissionRadius() {
