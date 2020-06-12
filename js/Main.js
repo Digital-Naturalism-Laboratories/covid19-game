@@ -1,13 +1,13 @@
 var canvas;
 var canvasContext;
 var nodeCount = 100;
-var nodeSpeed = 0.75;
+var nodeSpeed = 0.65;
 var nodes = [];
 var width = 400;
 var height = 640;
 var bottomPanelHeight = 100;
 var basePercentChanceToTransmit = 0.15;
-var baseTransmissionRadius = 50;
+var baseTransmissionRadius = 40;
 
 var gameStates = {
     START: "start",
