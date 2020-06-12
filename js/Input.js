@@ -8,19 +8,19 @@ function handleClick(evt) {
 
     var closestNode = null;
     var distClosestNode = null;
-    
-    for (node of nodes){
+
+    for (node of nodes) {
         var distThisNode = DistanceBetweenTwoPixelCoords(xPos, yPos, node.x, node.y);
-        if (distThisNode < distClosestNode || distClosestNode == null){
+        if (distThisNode < distClosestNode || distClosestNode == null) {
             closestNode = node;
             distClosestNode = distThisNode;
         }
     }
 
-    if (distClosestNode <= baseTransmissionRadius){
+    if (distClosestNode <= baseTransmissionRadius) {
         closestNode.isMasking = true;
     }
-    
+
     switch (gameState) {
         case 'start':
             buttonPlay.handleClick(xPos, yPos);

@@ -22,6 +22,7 @@ class GameObject {
         this.percentChanceToTransmit = basePercentChanceToTransmit;
         this.collitionTimeDuration = 15;
         this.collisionTimer = this.collitionTimeDuration;
+        this.asymptomatic = Math.random() < 0.05 ? true : false;
     }
 
     draw() {
@@ -43,13 +44,13 @@ class GameObject {
                 negativeCount++;
                 break;
             case "positive":
-                this.emoji = "🤢";
+                this.emoji = this.asymptomatic ? "🙂" : "🤢";
                 positiveCount++;
                 this.timeToRecovery--
                 if (this.timeToRecovery <= 0) {
                     this.condition = conditions.RECOVERED;
                 }
-                if (Math.random() < 0.0001) {
+                if (Math.random() < 0.00005) {
                     this.condition = conditions.DEAD;
                 }
                 break;
@@ -88,7 +89,7 @@ class GameObject {
                 this.collisionTimer = this.collitionTimeDuration;
             }
 
-            this.transmissionRadius = this.isMasking ? baseTransmissionRadius * 0.35 : baseTransmissionRadius;
+            this.transmissionRadius = this.isMasking ? baseTransmissionRadius * 0.40 : baseTransmissionRadius;
             if (DistanceBetweenTwoObjectsNextFrame(this, node) < (this.radius + node.transmissionRadius)) {
                 if (this.condition == conditions.NEGATIVE && node.condition == conditions.POSITIVE) {
                     this.condition = Math.random() < (this.percentChanceToTransmit / 100) ? conditions.POSITIVE : conditions.NEGATIVE;
