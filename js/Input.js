@@ -20,5 +20,16 @@ function handleClick(evt) {
     if (distClosestNode <= baseTransmissionRadius){
         closestNode.isMasking = true;
     }
+    
+    switch (gameState) {
+        case 'start':
+            buttonPlay.handleClick(xPos, yPos);
+            break;
+        case 'main':
+            break;
+        case 'end':
+            buttonReplay.handleClick(xPos, yPos);
+            break;
+    }
 
-  }
+}
