@@ -25,6 +25,9 @@ var allDeadGraphData = [];
 var framesPerGraphIncrement = 12;
 var graphIncrementTimer = framesPerGraphIncrement;
 
+var capacityThreshold = 0.8;
+var positiveGraphColor = 'green';
+
 function updateGraphData() {
 
     //negativeCount = nodeCount - positiveCount - recoveredCount;
@@ -34,7 +37,11 @@ function updateGraphData() {
     percentRecovered = Math.floor((recoveredCount / nodeCount) * 100);
     percentDead = Math.floor((deadCount / nodeCount) * 100);
 
-    percentTestingNegative += percentRecovered;
+    if (positiveGraphColor == 'green') {
+        positiveGraphColor = percentTestingPositive >= capacityThreshold * 100 ? 'red' : 'green';
+    }
+
+    deathRateMultiplier = percentTestingPositive >= capacityThreshold * 100 ? 5 : 1;
 
     graphIncrementTimer--;
     if (graphIncrementTimer <= 0) {
@@ -70,18 +77,20 @@ function drawGraph() {
 
     for (var i = 0; i < negativeGraphData.length; i++) {
         colorLine(i, canvas.height, i, canvas.height - deadGraphData[i], "black");
-        colorLine(i, canvas.height - deadGraphData[i], i, canvas.height - deadGraphData[i] - positiveGraphData[i], "red");
+        colorLine(i, canvas.height - deadGraphData[i], i, canvas.height - deadGraphData[i] - positiveGraphData[i], positiveGraphColor);
         colorLine(i, canvas.height - deadGraphData[i] - positiveGraphData[i], i, canvas.height - deadGraphData[i] - positiveGraphData[i] - negativeGraphData[i], "yellow");
-        //colorLine(i, canvas.height - positiveGraphData[i] - negativeGraphData[i], i, canvas.height - positiveGraphData[i] - negativeGraphData[i] - recoveredGraphData[i], "yellow"); //Recovered data on graph disabled. May add back later.
+
+        canvasContext.lineWidth = 1;
+        colorLine(0, canvas.height - (bottomPanelHeight * capacityThreshold), canvas.width, canvas.height - (bottomPanelHeight * capacityThreshold), 'darkred');
     }
 
     canvasContext.font = "16px Arial";
     canvasContext.fillStyle = "black";
     canvasContext.textAlign = 'left';
-    //canvasContext.fillText("Recovered " + percentRecovered + "%", canvas.width - 125, canvas.height - 70); //Recovered data on graph disabled. May add back later.
-    canvasContext.fillText("🙂 " + percentTestingNegative + "%", 20, canvas.height - 75);
-    canvasContext.fillText("🤢 " + percentTestingPositive + "%", 20, canvas.height - 45);
-    canvasContext.fillText("💀 " + percentDead + "%", 20, canvas.height - 15);
+
+    canvasContext.fillText("🙂 " + percentTestingNegative + "%", 10, canvas.height - 60);
+    canvasContext.fillText("🤢 " + percentTestingPositive + "%", 10, canvas.height - 40);
+    canvasContext.fillText("💀 " + percentDead + "%", 10, canvas.height - 20);
 
     drawRect(0, canvas.height - bottomPanelHeight, canvas.width, canvas.height, 'black', 2.5);
 }
@@ -91,9 +100,9 @@ function drawAllGraphs() {
     for (var j = allNegativeGraphData.length; j >= 1; j--) {
         for (var i = 0; i < negativeGraphData.length; i++) {
             colorLine(i, bottomPanelHeight * j, i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i], "black");
-            colorLine(i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i], i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i], "red");
+            colorLine(i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i], i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i], positiveGraphColor);
             colorLine(i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i], i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i] - allNegativeGraphData[allNegativeGraphData.length - j][i], "yellow");
-            //colorLine(i, canvas.height - positiveGraphData[i] - negativeGraphData[i], i, canvas.height - positiveGraphData[i] - negativeGraphData[i] - recoveredGraphData[i], "yellow"); //Recovered data on graph disabled. May add back later.
+
             canvasContext.font = "16px Arial";
             canvasContext.fillStyle = "black";
             canvasContext.textAlign = 'left';

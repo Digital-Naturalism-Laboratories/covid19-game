@@ -52,7 +52,7 @@ class GameObject {
                 if (this.timeToRecovery <= 0) {
                     this.condition = conditions.RECOVERED;
                 }
-                if (Math.random() < 0.00005) {
+                if (Math.random() < 0.00005 * deathRateMultiplier) {
                     this.condition = conditions.DEAD;
                 }
                 break;

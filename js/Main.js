@@ -8,6 +8,7 @@ var height = 640;
 var bottomPanelHeight = 100;
 var basePercentChanceToTransmit = 0.15;
 var baseTransmissionRadius = 40;
+var deathRateMultiplier = 1;
 
 var gameStates = {
     START: "start",
@@ -116,6 +117,8 @@ function resetGame() {
     positiveGraphData = [];
     recoveredGraphData = [];
     deadGraphData = [];
+    percentTestingPositive = 0;
+    positiveGraphColor = 'green';
 
     for (i = 0; i < nodeCount; i++) {
         nodes[i] = new GameObject(Math.random() * width, (Math.random() * height) - bottomPanelHeight, nodeSpeed);
