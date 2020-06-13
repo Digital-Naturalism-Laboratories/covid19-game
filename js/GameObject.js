@@ -29,6 +29,10 @@ class GameObject {
         canvasContext.font = "16px Arial";
         canvasContext.textAlign = 'center';
         canvasContext.fillText(this.emoji, this.x, this.y + (this.radius * 0.75));
+
+        if (this.isMasking) {
+            canvasContext.drawImage(maskImage, this.x - 7.8, this.y - 0.9, maskImage.width * 0.13, maskImage.height * 0.13);
+        }
         
     }
 
@@ -64,10 +68,6 @@ class GameObject {
                 this.emoji = "💀";
                 deadCount++;
                 return;
-        }
-
-        if (this.isMasking) {
-            this.emoji = "😷";
         }
 
         this.xNextFrame = this.x + this.xSpeed;

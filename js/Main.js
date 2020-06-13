@@ -10,6 +10,8 @@ var basePercentChanceToTransmit = 0.15;
 var baseTransmissionRadius = 40;
 var deathRateMultiplier = 1;
 
+var maskImage = document.createElement('img');
+
 var gameStates = {
     START: "start",
     MAIN: "main",
@@ -24,6 +26,8 @@ window.onload = function () {
     canvasContext = canvas.getContext('2d');
     canvasContext.canvas.width = width;
     canvasContext.canvas.height = height;
+
+    maskImage.src = 'images/mask.png';
 
     resetGame();
 
@@ -76,7 +80,8 @@ function drawEverything() {
 
             canvasContext.font = "100px Arial";
             canvasContext.fillText("🤢", canvas.width * 0.30, canvas.height * 0.80);
-            canvasContext.fillText("😷", canvas.width * 0.70, canvas.height * 0.80);
+            canvasContext.fillText("🤢", canvas.width * 0.70, canvas.height * 0.80);
+            canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.74), maskImage.width * 0.8, maskImage.height * 0.8);
 
             canvasContext.font = "60px Arial";
             canvasContext.fillText("👉", canvas.width * 0.22, canvas.height * 0.72);
