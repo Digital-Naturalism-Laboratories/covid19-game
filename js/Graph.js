@@ -32,7 +32,7 @@ function updateGraphData() {
 
     //negativeCount = nodeCount - positiveCount - recoveredCount;
 
-    percentTestingNegative = Math.floor((negativeCount / nodeCount) * 100);
+    percentTestingNegative = Math.floor(((negativeCount + recoveredCount) / nodeCount) * 100);
     percentTestingPositive = Math.floor((positiveCount / nodeCount) * 100);
     percentRecovered = Math.floor((recoveredCount / nodeCount) * 100);
     percentDead = Math.floor((deadCount / nodeCount) * 100);
