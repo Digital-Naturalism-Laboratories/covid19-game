@@ -44,6 +44,18 @@ class GameObject {
 
     update() {
 
+        switch (interactionMode) {
+            case 'masking':  
+                this.radius = 8; 
+                break;
+            case 'washing':
+                this.radius = 8;
+                break;
+            case 'distancing':
+                this.radius = 12;
+                break;
+        }
+
         switch (this.condition) {
             case "negative":
                 this.emoji = "🙂";
