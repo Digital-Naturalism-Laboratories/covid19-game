@@ -5,7 +5,9 @@ var nodeSpeed = 0.65;
 var nodes = [];
 var width = 400;
 var height = 640;
-var bottomPanelHeight = 100;
+var graphPanelHeight = 100;
+var buttonPanelHeight = 50;
+var buttonPanelWidth = width / 3;
 var basePercentChanceToTransmit = 0.15;
 var baseTransmissionRadius = 40;
 var deathRateMultiplier = 1;
@@ -18,7 +20,14 @@ var gameStates = {
     END: "end",
 };
 
+var interactionModes = {
+    MASKING: "masking",
+    WASHING: "washing",
+    DISTANCING: "distancing",
+};
+
 var gameState = gameStates.START;
+var interactionMode = interactionModes.MASKING;
 
 window.onload = function () {
 
@@ -31,8 +40,12 @@ window.onload = function () {
 
     resetGame();
 
-    buttonPlay = new Button(width / 2, height / 2, '▶️', 50);
-    buttonReplay = new Button(width / 2, height - 75, '🔄', 50);
+    buttonPlay = new Button(width / 2, height / 2, '▶️', 50, 100, false, true);
+    buttonReplay = new Button(width / 2, height - 75, '🔄', 50, 100, false, true);
+
+    buttonMasking = new Button(width * (1/6), canvas. height - graphPanelHeight - (buttonPanelHeight /2), '😷', 15, 30, true, true);
+    buttonWashing = new Button(width * (3/6), canvas. height - graphPanelHeight - (buttonPanelHeight /2), '🧼', 15, 30, true, false);
+    buttonDistancing = new Button(width * (5/6), canvas. height - graphPanelHeight - (buttonPanelHeight /2), '📏', 15, 30, true, false);
 
     initRenderLoop();
 }
@@ -57,6 +70,9 @@ function moveEverything() {
                 node.update();
             }
             updateGraphData();
+            buttonMasking.update();
+            buttonWashing.update();
+            buttonDistancing.update();
             break;
         case 'end':
             break;
@@ -100,8 +116,19 @@ function drawEverything() {
                 node.draw();
             }
 
-            colorRect(0, canvas.height - bottomPanelHeight, canvas.width, canvas.height, 'grey');
+            colorRect(0, canvas.height - graphPanelHeight, canvas.width, canvas.height, 'grey');
             drawGraph();
+
+            //colorRect(0, canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'orange');
+            //drawRect(0, canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'black');
+            buttonMasking.draw();
+            //colorRect(width * (1/3), canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'blue');
+            //drawRect(width * (1/3), canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'black');
+            buttonWashing.draw();
+            //colorRect(width * (2/3), canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'blue');
+            //drawRect(width * (2/3), canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'black');
+            buttonDistancing.draw();
+
             break;
 
         case 'end':
@@ -126,7 +153,7 @@ function resetGame() {
     positiveGraphColor = 'green';
 
     for (i = 0; i < nodeCount; i++) {
-        nodes[i] = new GameObject(Math.random() * width, (Math.random() * height) - bottomPanelHeight, nodeSpeed);
+        nodes[i] = new GameObject(Math.random() * width, (Math.random() * height) - graphPanelHeight, nodeSpeed);
 
         //Prevent nodes from spawning on top of each other.
         for (var node of nodes) {
@@ -134,7 +161,7 @@ function resetGame() {
                 node.x < node.radius ||
                 node.x > (canvas.width - node.radius) ||
                 node.y < node.radius ||
-                node.y > (canvas.height - this.bottomPanelHeight - node.radius)) {
+                node.y > (canvas.height - this.graphPanelHeight - node.radius)) {
                 nodes[i].x = Math.random() * width;
                 nodes[i].y = Math.random() * height;
             }

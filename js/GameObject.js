@@ -76,7 +76,7 @@ class GameObject {
         if (this.xNextFrame - (this.radius) < 0 || this.xNextFrame + (this.radius) > width) {
             this.xSpeed *= -1;
         }
-        if (this.yNextFrame - (this.radius) < 0 || this.yNextFrame + (this.radius) > height - bottomPanelHeight) {
+        if (this.yNextFrame - (this.radius) < 0 || this.yNextFrame + (this.radius) > height - graphPanelHeight) {
             this.ySpeed *= -1;
         }
 

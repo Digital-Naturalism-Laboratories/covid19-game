@@ -81,7 +81,7 @@ function drawGraph() {
         colorLine(i, canvas.height - deadGraphData[i] - positiveGraphData[i], i, canvas.height - deadGraphData[i] - positiveGraphData[i] - negativeGraphData[i], "yellow");
 
         canvasContext.lineWidth = 1;
-        colorLine(0, canvas.height - (bottomPanelHeight * capacityThreshold), canvas.width, canvas.height - (bottomPanelHeight * capacityThreshold), 'darkred');
+        colorLine(0, canvas.height - (graphPanelHeight * capacityThreshold), canvas.width, canvas.height - (graphPanelHeight * capacityThreshold), 'darkred');
     }
 
     canvasContext.font = "16px Arial";
@@ -92,31 +92,31 @@ function drawGraph() {
     canvasContext.fillText("🤢 " + percentTestingPositive + "%", 10, canvas.height - 40);
     canvasContext.fillText("💀 " + percentDead + "%", 10, canvas.height - 20);
 
-    drawRect(0, canvas.height - bottomPanelHeight, canvas.width, canvas.height, 'black', 2.5);
+    drawRect(0, canvas.height - graphPanelHeight, canvas.width, canvas.height, 'black', 2.5);
 }
 
 function drawAllGraphs() {
 
     for (var j = allNegativeGraphData.length; j >= 1; j--) {
         for (var i = 0; i < negativeGraphData.length; i++) {
-            colorLine(i, bottomPanelHeight * j, i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i], "black");
-            colorLine(i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i], i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i], positiveGraphColor);
-            colorLine(i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i], i, bottomPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i] - allNegativeGraphData[allNegativeGraphData.length - j][i], "yellow");
+            colorLine(i, graphPanelHeight * j, i, graphPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i], "black");
+            colorLine(i, graphPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i], i, graphPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i], positiveGraphColor);
+            colorLine(i, graphPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i], i, graphPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i] - allNegativeGraphData[allNegativeGraphData.length - j][i], "yellow");
 
             canvasContext.font = "16px Arial";
             canvasContext.fillStyle = "black";
             canvasContext.textAlign = 'left';
-            canvasContext.fillText(allNegativeGraphData.length - (j - 1), 10, 20 + ((j - 1) * bottomPanelHeight));
+            canvasContext.fillText(allNegativeGraphData.length - (j - 1), 10, 20 + ((j - 1) * graphPanelHeight));
 
-            canvasContext.fillText("🙂 " + allPercentTestingNegative[allNegativeGraphData.length - j] + "%", 20, bottomPanelHeight * (j - 1) + 25);
-            canvasContext.fillText("🤢 " + allPercentTestingPositive[allNegativeGraphData.length - j] + "%", 20, bottomPanelHeight * (j - 1) + 50);
-            canvasContext.fillText("💀 " + allPercentDead[allNegativeGraphData.length - j] + "%", 20, bottomPanelHeight * (j - 1) + 75);
+            canvasContext.fillText("🙂 " + allPercentTestingNegative[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 25);
+            canvasContext.fillText("🤢 " + allPercentTestingPositive[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 50);
+            canvasContext.fillText("💀 " + allPercentDead[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 75);
         }
 
-        //drawRect(0, bottomPanelHeight * j, canvas.width, bottomPanelHeight * (j - 1), 'black'), 2;
+        //drawRect(0, graphPanelHeight * j, canvas.width, graphPanelHeight * (j - 1), 'black'), 2;
 
     }
 
-    colorRect(0, bottomPanelHeight * 5, canvas.width, canvas.height - (bottomPanelHeight * 5), 'white');
+    colorRect(0, graphPanelHeight * 5, canvas.width, canvas.height - (graphPanelHeight * 5), 'white');
 
 }
