@@ -11,6 +11,7 @@ var buttonPanelWidth = width / 3;
 var basePercentChanceToTransmit = 0.15;
 var baseTransmissionRadius = 40;
 var deathRateMultiplier = 1;
+var washingStations = [];
 
 var maskImage = document.createElement('img');
 
@@ -115,18 +116,15 @@ function drawEverything() {
             for (var node of nodes) {
                 node.draw();
             }
+            for (var washingStation of washingStations) {
+                washingStation.draw();
+            }
 
             colorRect(0, canvas.height - graphPanelHeight, canvas.width, canvas.height, 'grey');
             drawGraph();
 
-            //colorRect(0, canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'orange');
-            //drawRect(0, canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'black');
             buttonMasking.draw();
-            //colorRect(width * (1/3), canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'blue');
-            //drawRect(width * (1/3), canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'black');
             buttonWashing.draw();
-            //colorRect(width * (2/3), canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'blue');
-            //drawRect(width * (2/3), canvas.height - graphPanelHeight - buttonPanelHeight, canvas.width / 3, buttonPanelHeight, 'black');
             buttonDistancing.draw();
 
             break;
@@ -145,6 +143,7 @@ function drawEverything() {
 function resetGame() {
 
     nodes = [];
+    washingStations = [];
     negativeGraphData = [];
     positiveGraphData = [];
     recoveredGraphData = [];
@@ -153,7 +152,7 @@ function resetGame() {
     positiveGraphColor = 'green';
 
     for (i = 0; i < nodeCount; i++) {
-        nodes[i] = new GameObject(Math.random() * width, (Math.random() * height) - graphPanelHeight, nodeSpeed);
+        nodes[i] = new GameObject(Math.random() * width, (Math.random() * height) - graphPanelHeight - buttonPanelHeight - 10, nodeSpeed);
 
         //Prevent nodes from spawning on top of each other.
         for (var node of nodes) {
@@ -163,7 +162,7 @@ function resetGame() {
                 node.y < node.radius ||
                 node.y > (canvas.height - this.graphPanelHeight - node.radius)) {
                 nodes[i].x = Math.random() * width;
-                nodes[i].y = Math.random() * height;
+                nodes[i].y = (Math.random() * height) - graphPanelHeight - buttonPanelHeight - 10;
             }
         }
 
