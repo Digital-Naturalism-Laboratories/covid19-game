@@ -32,7 +32,7 @@ function updateGraphData() {
 
     //negativeCount = nodeCount - positiveCount - recoveredCount;
 
-    percentTestingNegative = Math.floor(((negativeCount + recoveredCount) / nodeCount) * 100);
+    percentTestingNegative = Math.floor(((negativeCount) / nodeCount) * 100);
     percentTestingPositive = Math.floor((positiveCount / nodeCount) * 100);
     percentRecovered = Math.floor((recoveredCount / nodeCount) * 100);
     percentDead = Math.floor((deadCount / nodeCount) * 100);
@@ -88,9 +88,10 @@ function drawGraph() {
     canvasContext.fillStyle = "black";
     canvasContext.textAlign = 'left';
 
-    canvasContext.fillText("🙂 " + percentTestingNegative + "%", 10, canvas.height - 60);
-    canvasContext.fillText("🤢 " + percentTestingPositive + "%", 10, canvas.height - 40);
-    canvasContext.fillText("💀 " + percentDead + "%", 10, canvas.height - 20);
+    canvasContext.fillText("🙂 " + percentTestingNegative + "%", 5, canvas.height - 65);
+    canvasContext.fillText("🤢 " + percentTestingPositive + "%", 5, canvas.height - 45);
+    canvasContext.fillText("😁 " + percentRecovered + "%", 5, canvas.height - 25);
+    canvasContext.fillText("💀 " + percentDead + "%", 5, canvas.height - 5);
 
     drawRect(0, canvas.height - graphPanelHeight, canvas.width, canvas.height, 'black', 2.5);
 }
@@ -110,6 +111,7 @@ function drawAllGraphs() {
 
             canvasContext.fillText("🙂 " + allPercentTestingNegative[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 25);
             canvasContext.fillText("🤢 " + allPercentTestingPositive[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 50);
+            //canvasContext.fillText("😁 " + allPercentTestingRecovered[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 50);
             canvasContext.fillText("💀 " + allPercentDead[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 75);
         }
 

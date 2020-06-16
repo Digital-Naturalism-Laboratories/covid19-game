@@ -152,7 +152,7 @@ function resetGame() {
     positiveGraphColor = 'green';
 
     for (i = 0; i < nodeCount; i++) {
-        nodes[i] = new GameObject(Math.random() * width, (Math.random() * height) - graphPanelHeight - buttonPanelHeight - 10, nodeSpeed);
+        nodes[i] = new Sim(Math.random() * width, (Math.random() * height) - graphPanelHeight - buttonPanelHeight - 10, nodeSpeed);
 
         //Prevent nodes from spawning on top of each other.
         for (var node of nodes) {
