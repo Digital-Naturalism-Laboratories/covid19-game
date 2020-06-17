@@ -113,13 +113,13 @@ function drawEverything() {
             for (var node of nodes) {
                 node.drawTransmissionRadius();
             }
-            for (var node of nodes) {
-                node.draw();
-            }
             for (var washingStation of washingStations) {
                 washingStation.draw();
             }
-
+            for (var node of nodes) {
+                node.draw();
+            }
+            
             colorRect(0, canvas.height - graphPanelHeight, canvas.width, canvas.height, 'grey');
             drawGraph();
 

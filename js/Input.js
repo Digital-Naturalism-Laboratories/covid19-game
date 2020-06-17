@@ -35,7 +35,6 @@ function handleClick(evt) {
                     break;
                 case 'washing':
                     washingStations.push(new WashingStation(xPos, yPos));
-                    console.log("test");
                     break;
                 case 'distancing':
                     break;

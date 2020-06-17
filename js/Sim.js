@@ -134,9 +134,8 @@ class Sim {
 
         //detect collisions with washing stations
         for (var washingStation of washingStations) {
-            if (DistanceBetweenTwoObjectsNextFrame(this, washingStation) < (this.radius + washingStation.radius)) {
+            if (DistanceBetweenTwoObjects(this, washingStation) < (this.radius + washingStation.radius)) {
                 this.isWashing = true;
-                this.randomizeDirection();
             }
         }
     }
