@@ -1,3 +1,5 @@
+var deathRateMultiplier = 1;
+
 var conditions = {
     NEGATIVE: "negative",
     POSITIVE: "positive",
@@ -12,6 +14,7 @@ class Sim {
         this.xNextFrame;
         this.yNextFrame;
         this.speed = speed;
+        this.speedMultiplier = 1;
         this.xSpeed = speed * Math.random() < 0.5 ? (-1 * Math.random()) : (1 * Math.random());
         this.ySpeed = speed * Math.random() < 0.5 ? (-1 * Math.random()) : (1 * Math.random());
         this.radius = 8;
@@ -19,21 +22,21 @@ class Sim {
         this.condition = Math.random() < 0.03 ? conditions.POSITIVE : conditions.NEGATIVE;
         this.isMasking = false;
         this.isWashing = false;
-        this.timeToRecovery = (Math.random() * 50000);
+        this.timeToRecovery = (Math.random() * 50000); //measured in frames
         this.percentChanceToTransmit = basePercentChanceToTransmit;
-        this.collitionTimeDuration = 15;
-        this.collisionTimer = this.collitionTimeDuration;
+        this.collitionTimeDuration = 20; //measured in frames
+        this.collisionTimer = this.collitionTimeDuration; //measured in frames
         this.asymptomatic = Math.random() < 0.05 ? true : false;
     }
 
     draw() {
 
-        //draw emoji
+        //draw sim emoji
         canvasContext.font = "16px Arial";
         canvasContext.textAlign = 'center';
         canvasContext.fillText(this.emoji, this.x, this.y + (this.radius * 0.75));
 
-        //draw masks and/or soap on top of sim emoji
+        //draw masks and/or soap icon on top of sim emoji
         if (this.isMasking) {
             canvasContext.drawImage(maskImage, this.x - 7.8, this.y - 0.9, maskImage.width * 0.13, maskImage.height * 0.13);
         }
@@ -45,94 +48,119 @@ class Sim {
 
     }
 
-    //draw the transmission radius if the sim is positive
     drawTransmissionRadius() {
+
+        //draw the transmission radius if the sim is positive
         if (this.condition == conditions.POSITIVE) {
             colorCircle(this.x, this.y, this.transmissionRadius, 'green');
         }
+
     }
 
     update() {
 
-        //increase collission radius when distancing. Graphical bug: Changing the radius affects placement of emoji image. maybe change to speed increase when in transmission radius
-        switch (interactionMode) {
-            case 'masking':
-                this.radius = 8;
-                break;
-            case 'washing':
-                this.radius = 8;
-                break;
-            case 'distancing':
-                this.radius = 12;
-                break;
-        }
-
         switch (this.condition) {
             case "negative":
+
                 this.emoji = "🙂";
                 negativeCount++;
                 break;
+
             case "positive":
+
                 this.emoji = this.asymptomatic ? "🙂" : "🤢";
                 positiveCount++;
+
+                //countdown until a positive sim is recovered
                 this.timeToRecovery--
                 if (this.timeToRecovery <= 0) {
                     this.condition = conditions.RECOVERED;
                 }
+
+                //chance each frame of a positive sim dying before recovering
                 if (Math.random() < 0.00005 * deathRateMultiplier) {
                     this.condition = conditions.DEAD;
                 }
                 break;
+
             case "recovered":
+
                 this.emoji = "😁";
                 recoveredCount++;
                 break;
+
             case "dead":
+
                 this.emoji = "💀";
                 deadCount++;
-                return;
+                return; //exits update function if the sim is dead
+
         }
 
         this.detectCollision();
 
-        this.x += this.xSpeed;
-        this.y += this.ySpeed;
+        //update sim position
+        this.x += this.xSpeed * this.speedMultiplier;
+        this.y += this.ySpeed * this.speedMultiplier;
     }
 
     detectCollision() {
+
+        //set transmission radius based on isMasking and isWashing
+        this.transmissionRadius = this.isMasking ? baseTransmissionRadius * 0.40 : baseTransmissionRadius;
+        this.transmissionRadius = this.isWashing ? this.transmissionRadius * 0.80 : this.transmissionRadius
+
+        //save the position of where the sim will be next frame for collision calculations
         this.xNextFrame = this.x + this.xSpeed;
         this.yNextFrame = this.y + this.ySpeed;
 
+        //bounce the sim off the left and right walls on collision
         if (this.xNextFrame - (this.radius) < 0 || this.xNextFrame + (this.radius) > width) {
             this.xSpeed *= -1;
         }
+
+        //bounce the sim off the top and bottom walls on collision
         if (this.yNextFrame - (this.radius) < 0 || this.yNextFrame + (this.radius) > height - graphPanelHeight - buttonPanelHeight) {
             this.ySpeed *= -1;
         }
 
         this.collisionTimer--;
 
-        //detect collisions with other nodes
-        for (var node of nodes) {
-            if (this.collisionTimer > 0) break;
-            if (node.condition == conditions.DEAD) continue;
+        //cycle through all other sims to test for collisions
+        for (var sim of sims) {
+            if (sim.condition == conditions.DEAD) continue;
 
-            if (DistanceBetweenTwoObjectsNextFrame(this, node) < (this.radius + node.radius) && DistanceBetweenTwoObjectsNextFrame(this, node) != 0) {
-                this.randomizeDirection()
-            }
+            //check if this sim is within another's transmission radius
+            if (DistanceBetweenTwoObjectsNextFrame(this, sim) < (this.radius + sim.transmissionRadius)) {
 
-            //detect collision with transmission radius of other nodes
-            this.transmissionRadius = this.isMasking ? baseTransmissionRadius * 0.40 : baseTransmissionRadius;
-            this.transmissionRadius = this.isWashing ? this.transmissionRadius * 0.80 : this.transmissionRadius
-            if (DistanceBetweenTwoObjectsNextFrame(this, node) < (this.radius + node.transmissionRadius)) {
-                if (this.condition == conditions.NEGATIVE && node.condition == conditions.POSITIVE) {
+                //chance for virus to tranmit from a positive sim to this sim
+                if (this.condition == conditions.NEGATIVE && sim.condition == conditions.POSITIVE) {
                     this.condition = Math.random() < (this.percentChanceToTransmit / 100) ? conditions.POSITIVE : conditions.NEGATIVE;
                 }
+
+                //if distancing mode is enabled, change direction when when in a sims transmission radius
+                if (interactionMode == interactionModes.DISTANCING) {
+                    this.randomizeDirection();
+                }
+            }
+
+            //modify distancing radius and sim speed when distancing mode is enabled
+            if (interactionMode == interactionModes.DISTANCING) {
+                var distancingRadius = this.radius * 2;
+                this.speedMultiplier = 0.5;
+            } else {
+                distancingRadius = this.radius;
+                this.speedMultiplier = 1;
+            }
+
+            //detect collision with another sim and change direction
+            if (DistanceBetweenTwoObjectsNextFrame(this, sim) < (distancingRadius + sim.radius) && DistanceBetweenTwoObjectsNextFrame(this, sim) != 0) {
+                this.randomizeDirection();
             }
 
         }
 
-        //detect collisions with washing stations
+        //detect proximity to washing stations
         for (var washingStation of washingStations) {
             if (DistanceBetweenTwoObjects(this, washingStation) < (this.radius + washingStation.radius)) {
                 this.isWashing = true;
@@ -141,9 +169,15 @@ class Sim {
     }
 
     randomizeDirection() {
+
+        if (this.collisionTimer > 0) return;
+
         this.ySpeed = Math.random() < 0.5 ? (Math.random() * -this.speed) : (Math.random() * this.speed);
         this.xSpeed = Math.random() < 0.5 ? (Math.random() * -this.speed) : (Math.random() * this.speed);
+        
+        //reset collision timer
         this.collisionTimer = this.collitionTimeDuration;
+
     }
 
 }

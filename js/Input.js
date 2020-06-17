@@ -17,19 +17,19 @@ function handleClick(evt) {
 
             switch (interactionMode) {
                 case 'masking':
-                    var closestNode = null;
-                    var distClosestNode = null;
+                    var closestsim = null;
+                    var distClosestsim = null;
         
-                    for (node of nodes) {
-                        var distThisNode = DistanceBetweenTwoPixelCoords(xPos, yPos, node.x, node.y);
-                        if (distThisNode < distClosestNode || distClosestNode == null) {
-                            closestNode = node;
-                            distClosestNode = distThisNode;
+                    for (sim of sims) {
+                        var distThissim = DistanceBetweenTwoPixelCoords(xPos, yPos, sim.x, sim.y);
+                        if (distThissim < distClosestsim || distClosestsim == null) {
+                            closestsim = sim;
+                            distClosestsim = distThissim;
                         }
                     }
         
-                    if (distClosestNode <= baseTransmissionRadius) {
-                        closestNode.isMasking = true;
+                    if (distClosestsim <= baseTransmissionRadius) {
+                        closestsim.isMasking = true;
                     }
                     
                     break;

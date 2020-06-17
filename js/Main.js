@@ -1,18 +1,18 @@
+//Variables that can be adjusted to tune the game as desired
+var simCount = 100;
+var simSpeed = 0.65;
+var basePercentChanceToTransmit = 0.15;
+var baseTransmissionRadius = 40;
+
 var canvas;
 var canvasContext;
-var nodeCount = 100;
-var nodeSpeed = 0.65;
-var nodes = [];
 var width = 400;
 var height = 640;
+var sims = [];
+var washingStations = [];
 var graphPanelHeight = 100;
 var buttonPanelHeight = 50;
 var buttonPanelWidth = width / 3;
-var basePercentChanceToTransmit = 0.15;
-var baseTransmissionRadius = 40;
-var deathRateMultiplier = 1;
-var washingStations = [];
-
 var maskImage = document.createElement('img');
 
 var gameStates = {
@@ -44,9 +44,9 @@ window.onload = function () {
     buttonPlay = new Button(width / 2, height / 2, '▶️', 50, 100, false, true);
     buttonReplay = new Button(width / 2, height - 75, '🔄', 50, 100, false, true);
 
-    buttonMasking = new Button(width * (1/6), canvas. height - graphPanelHeight - (buttonPanelHeight /2), '😷', 15, 30, true, true);
-    buttonWashing = new Button(width * (3/6), canvas. height - graphPanelHeight - (buttonPanelHeight /2), '🧼', 15, 30, true, false);
-    buttonDistancing = new Button(width * (5/6), canvas. height - graphPanelHeight - (buttonPanelHeight /2), '📏', 15, 30, true, false);
+    buttonMasking = new Button(width * (1 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '😷', 15, 30, true, true);
+    buttonWashing = new Button(width * (3 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '🧼', 15, 30, true, false);
+    buttonDistancing = new Button(width * (5 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '📏', 15, 30, true, false);
 
     initRenderLoop();
 }
@@ -67,8 +67,8 @@ function moveEverything() {
         case 'start':
             break;
         case 'main':
-            for (var node of nodes) {
-                node.update();
+            for (var sim of sims) {
+                sim.update();
             }
             updateGraphData();
             buttonMasking.update();
@@ -110,16 +110,16 @@ function drawEverything() {
 
         case 'main':
 
-            for (var node of nodes) {
-                node.drawTransmissionRadius();
+            for (var sim of sims) {
+                sim.drawTransmissionRadius();
             }
             for (var washingStation of washingStations) {
                 washingStation.draw();
             }
-            for (var node of nodes) {
-                node.draw();
+            for (var sim of sims) {
+                sim.draw();
             }
-            
+
             colorRect(0, canvas.height - graphPanelHeight, canvas.width, canvas.height, 'grey');
             drawGraph();
 
@@ -142,7 +142,7 @@ function drawEverything() {
 
 function resetGame() {
 
-    nodes = [];
+    sims = [];
     washingStations = [];
     negativeGraphData = [];
     positiveGraphData = [];
@@ -151,26 +151,26 @@ function resetGame() {
     percentTestingPositive = 0;
     positiveGraphColor = 'green';
 
-    for (i = 0; i < nodeCount; i++) {
-        nodes[i] = new Sim(Math.random() * width, (Math.random() * height) - graphPanelHeight - buttonPanelHeight - 10, nodeSpeed);
+    for (i = 0; i < simCount; i++) {
+        sims[i] = new Sim(Math.random() * width, (Math.random() * height) - graphPanelHeight - buttonPanelHeight - 10, simSpeed);
 
-        //Prevent nodes from spawning on top of each other.
-        for (var node of nodes) {
-            while ((DistanceBetweenTwoObjects(nodes[i], node) < (nodes[i].radius + node.radius) && DistanceBetweenTwoObjects(nodes[i], node) != 0) ||
-                node.x < node.radius ||
-                node.x > (canvas.width - node.radius) ||
-                node.y < node.radius ||
-                node.y > (canvas.height - this.graphPanelHeight - node.radius)) {
-                nodes[i].x = Math.random() * width;
-                nodes[i].y = (Math.random() * height) - graphPanelHeight - buttonPanelHeight - 10;
+        //Prevent sims from spawning on top of each other.
+        for (var sim of sims) {
+            while ((DistanceBetweenTwoObjects(sims[i], sim) < (sims[i].radius + sim.radius) && DistanceBetweenTwoObjects(sims[i], sim) != 0) ||
+                sim.x < sim.radius ||
+                sim.x > (canvas.width - sim.radius) ||
+                sim.y < sim.radius ||
+                sim.y > (canvas.height - this.graphPanelHeight - sim.radius)) {
+                sims[i].x = Math.random() * width;
+                sims[i].y = (Math.random() * height) - graphPanelHeight - buttonPanelHeight - 10;
             }
         }
 
     }
 
-    //Ensure that at least 2 nodes are positive.
+    //Ensure that at least 2 sims are positive.
     if (positiveCount < 2) {
-        nodes[0].condition = conditions.POSITIVE;
-        nodes[1].condition = conditions.POSITIVE;
+        sims[0].condition = conditions.POSITIVE;
+        sims[1].condition = conditions.POSITIVE;
     }
 }

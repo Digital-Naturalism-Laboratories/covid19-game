@@ -30,12 +30,12 @@ var positiveGraphColor = 'green';
 
 function updateGraphData() {
 
-    //negativeCount = nodeCount - positiveCount - recoveredCount;
+    //negativeCount = simCount - positiveCount - recoveredCount;
 
-    percentTestingNegative = Math.floor(((negativeCount) / nodeCount) * 100);
-    percentTestingPositive = Math.floor((positiveCount / nodeCount) * 100);
-    percentRecovered = Math.floor((recoveredCount / nodeCount) * 100);
-    percentDead = Math.floor((deadCount / nodeCount) * 100);
+    percentTestingNegative = Math.floor(((negativeCount) / simCount) * 100);
+    percentTestingPositive = Math.floor((positiveCount / simCount) * 100);
+    percentRecovered = Math.floor((recoveredCount / simCount) * 100);
+    percentDead = Math.floor((deadCount / simCount) * 100);
 
     if (positiveGraphColor == 'green') {
         positiveGraphColor = percentTestingPositive >= capacityThreshold * 100 ? 'red' : 'green';
