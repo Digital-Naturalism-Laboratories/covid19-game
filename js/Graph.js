@@ -10,6 +10,7 @@ var percentDead = 0;
 
 var allPercentTestingNegative = [];
 var allPercentTestingPositive = [];
+var allPercentRecovered = [];
 var allPercentDead = [];
 
 var negativeGraphData = [];
@@ -36,12 +37,12 @@ function updateGraphData() {
     percentRecovered = Math.floor((recoveredCount / simCount) * 100);
     percentDead = Math.floor((deadCount / simCount) * 100);
 
-    if (positiveGraphColor == 'green') {
-        positiveGraphColor = percentTestingPositive >= capacityThreshold * 100 ? 'red' : 'green';
-    }
-
     isOverCapacity = percentTestingPositive >= capacityThreshold * 100 ? true : false;
     deathRateMultiplier = isOverCapacity ? overCapacityDeathRateMultiplier : 1;
+
+    if (positiveGraphColor == 'green') {
+        positiveGraphColor = isOverCapacity ? 'red' : 'green';
+    }
 
     if (isOverCapacity){
         deathRateMultiplier *= 1.01;
@@ -65,6 +66,7 @@ function updateGraphData() {
 
         allPercentTestingNegative.push(percentTestingNegative);
         allPercentTestingPositive.push(percentTestingPositive);
+        allPercentRecovered.push(percentRecovered);
         allPercentDead.push(percentDead);
 
         gameState = gameStates.END;
@@ -111,12 +113,12 @@ function drawAllGraphs() {
             canvasContext.font = "16px Arial";
             canvasContext.fillStyle = "black";
             canvasContext.textAlign = 'left';
-            canvasContext.fillText(allNegativeGraphData.length - (j - 1), 10, 20 + ((j - 1) * graphPanelHeight));
+            canvasContext.fillText(allNegativeGraphData.length - (j - 1), 8, 20 + ((j - 1) * graphPanelHeight));
 
-            canvasContext.fillText("🙂 " + allPercentTestingNegative[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 25);
-            canvasContext.fillText("🤢 " + allPercentTestingPositive[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 50);
-            //canvasContext.fillText("😁 " + allPercentTestingRecovered[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 50);
-            canvasContext.fillText("💀 " + allPercentDead[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 75);
+            canvasContext.fillText("🙂 " + allPercentTestingNegative[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 18);
+            canvasContext.fillText("🤢 " + allPercentTestingPositive[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 40);
+            canvasContext.fillText("😁 " + allPercentRecovered[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 62);
+            canvasContext.fillText("💀 " + allPercentDead[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 84);
         }
 
     }
