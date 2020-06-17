@@ -26,11 +26,10 @@ var framesPerGraphIncrement = 12;
 var graphIncrementTimer = framesPerGraphIncrement;
 
 var capacityThreshold = 0.8;
+var isOverCapacity = false;
 var positiveGraphColor = 'green';
 
 function updateGraphData() {
-
-    //negativeCount = simCount - positiveCount - recoveredCount;
 
     percentTestingNegative = Math.floor(((negativeCount) / simCount) * 100);
     percentTestingPositive = Math.floor((positiveCount / simCount) * 100);
@@ -41,7 +40,12 @@ function updateGraphData() {
         positiveGraphColor = percentTestingPositive >= capacityThreshold * 100 ? 'red' : 'green';
     }
 
-    deathRateMultiplier = percentTestingPositive >= capacityThreshold * 100 ? 5 : 1;
+    isOverCapacity = percentTestingPositive >= capacityThreshold * 100 ? true : false;
+    deathRateMultiplier = isOverCapacity ? overCapacityDeathRateMultiplier : 1;
+
+    if (isOverCapacity){
+        deathRateMultiplier *= 1.01;
+    }
 
     graphIncrementTimer--;
     if (graphIncrementTimer <= 0) {
@@ -114,8 +118,6 @@ function drawAllGraphs() {
             //canvasContext.fillText("😁 " + allPercentTestingRecovered[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 50);
             canvasContext.fillText("💀 " + allPercentDead[allNegativeGraphData.length - j] + "%", 20, graphPanelHeight * (j - 1) + 75);
         }
-
-        //drawRect(0, graphPanelHeight * j, canvas.width, graphPanelHeight * (j - 1), 'black'), 2;
 
     }
 

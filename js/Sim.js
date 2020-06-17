@@ -64,6 +64,13 @@ class Sim {
 
                 this.emoji = "🙂";
                 negativeCount++;
+
+                //chance for recovered sims to die if hospitials over capacity
+                if (isOverCapacity) {
+                    if (Math.random() < 0.00005  * deathRateMultiplier) {
+                        this.condition = conditions.DEAD;
+                    }
+                }
                 break;
 
             case "positive":
@@ -78,7 +85,7 @@ class Sim {
                 }
 
                 //chance each frame of a positive sim dying before recovering
-                if (Math.random() < 0.00005 * deathRateMultiplier) {
+                if (Math.random() < 0.00005  * deathRateMultiplier) {
                     this.condition = conditions.DEAD;
                 }
                 break;
@@ -87,6 +94,14 @@ class Sim {
 
                 this.emoji = "😁";
                 recoveredCount++;
+
+                //chance for recovered sims to die if hospitials over capacity
+                if (isOverCapacity) {
+                    if (Math.random() < 0.00005  * deathRateMultiplier) {
+                        this.condition = conditions.DEAD;
+                    }
+                }
+
                 break;
 
             case "dead":

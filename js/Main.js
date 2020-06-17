@@ -3,6 +3,7 @@ var simCount = 100;
 var simSpeed = 0.65;
 var basePercentChanceToTransmit = 0.15;
 var baseTransmissionRadius = 40;
+var overCapacityDeathRateMultiplier = 500;
 
 var canvas;
 var canvasContext;
