@@ -25,9 +25,7 @@ class Button {
         if (buttonWashing.isEnabled == true){
             interactionMode = interactionModes.WASHING;
         }
-        if (buttonDistancing.isEnabled == true){
-            interactionMode = interactionModes.DISTANCING;
-        }
+
     }
 
     draw() {
@@ -45,11 +43,20 @@ class Button {
         if (DistanceBetweenTwoPixelCoords(xClick, yClick, this.x, this.y) < this.radius) {
             
             if (this.isToggle){
- 
-                for ( var toggle of toggleButtons) {
-                    toggle.toggleOff();
+
+                if (this == buttonMasking){
+                    this.isEnabled = true;
+                    buttonWashing.toggleOff();
                 }
-                this.isEnabled = true;
+
+                if (this == buttonWashing){
+                    this.isEnabled = true;
+                    buttonMasking.toggleOff();
+                }
+
+                if (this == buttonDistancing){
+                    this.isEnabled = !this.isEnabled;
+                }
 
             } else {
                 gameState = gameStates.MAIN;

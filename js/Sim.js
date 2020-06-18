@@ -160,7 +160,7 @@ class Sim {
             }
 
             //modify distancing radius and sim speed when distancing mode is enabled
-            if (interactionMode == interactionModes.DISTANCING) {
+            if (buttonDistancing.isEnabled) {
                 var distancingRadius = this.radius * 2;
                 this.speedMultiplier = 0.5;
             } else {

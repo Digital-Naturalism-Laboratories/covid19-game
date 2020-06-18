@@ -26,7 +26,6 @@ var gameStates = {
 var interactionModes = {
     MASKING: "masking",
     WASHING: "washing",
-    DISTANCING: "distancing",
 };
 
 var gameState = gameStates.START;
