@@ -15,29 +15,29 @@ function handleClick(evt) {
             buttonWashing.handleClick(xPos, yPos);
             buttonDistancing.handleClick(xPos, yPos);
 
-            switch (interactionMode) {
-                case 'masking':
-                    var closestsim = null;
-                    var distClosestsim = null;
-        
-                    for (sim of sims) {
-                        var distThissim = DistanceBetweenTwoPixelCoords(xPos, yPos, sim.x, sim.y);
-                        if (distThissim < distClosestsim || distClosestsim == null) {
-                            closestsim = sim;
-                            distClosestsim = distThissim;
+            if (yPos < canvas.height - (graphPanelHeight + buttonPanelHeight)) {
+                switch (interactionMode) {
+                    case 'masking':
+                        var closestsim = null;
+                        var distClosestsim = null;
+
+                        for (sim of sims) {
+                            var distThissim = DistanceBetweenTwoPixelCoords(xPos, yPos, sim.x, sim.y);
+                            if (distThissim < distClosestsim || distClosestsim == null) {
+                                closestsim = sim;
+                                distClosestsim = distThissim;
+                            }
                         }
-                    }
-        
-                    if (distClosestsim <= baseTransmissionRadius) {
-                        closestsim.isMasking = true;
-                    }
-                    
-                    break;
-                case 'washing':
-                    washingStations.push(new WashingStation(xPos, yPos));
-                    break;
-                case 'distancing':
-                    break;
+
+                        if (distClosestsim <= baseTransmissionRadius) {
+                            closestsim.isMasking = true;
+                        }
+
+                        break;
+                    case 'washing':
+                        washingStations.push(new WashingStation(xPos, yPos));
+                        break;
+                }
             }
 
             break;

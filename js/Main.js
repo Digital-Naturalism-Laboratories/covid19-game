@@ -45,9 +45,9 @@ window.onload = function () {
     buttonPlay = new Button(width / 2, height / 2, '▶️', 50, 100, false, true);
     buttonReplay = new Button(width / 2, height - 75, '🔄', 50, 100, false, true);
 
-    buttonMasking = new Button(width * (1 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '😷', 15, 30, true, true);
-    buttonWashing = new Button(width * (3 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '🧼', 15, 30, true, false);
-    buttonDistancing = new Button(width * (5 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '📏', 15, 30, true, false);
+    buttonMasking = new Button(width * (1 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '😷', (buttonPanelHeight / 2), 30, true, true);
+    buttonWashing = new Button(width * (3 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '🧼', (buttonPanelHeight / 2), 30, true, false);
+    buttonDistancing = new Button(width * (5 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '📏', (buttonPanelHeight / 2), 30, true, false);
 
     initRenderLoop();
 }
