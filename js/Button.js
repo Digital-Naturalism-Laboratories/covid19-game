@@ -36,7 +36,7 @@ class Button {
 
         canvasContext.font = this.fontSize + "px Arial";
         canvasContext.textAlign = 'center';
-        canvasContext.fillText(this.emoji, this.x, this.y + (this.radius * 0.66));
+        canvasContext.fillText(this.emoji, this.x, this.y + (this.radius * 0.45));
     }
 
     handleClick(xClick, yClick) {
