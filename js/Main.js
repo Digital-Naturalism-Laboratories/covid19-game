@@ -3,8 +3,9 @@ var simCount = 100;
 var simSpeed = 0.65;
 var basePercentChanceToTransmit = 0.15;
 var baseTransmissionRadius = 40;
-var overCapacityDeathRateMultiplier = 500;
+var overCapacityDeathRateMultiplier = 5;
 var initialPositiveSimCount = 1;
+//var lengthOfRound = 60;
 
 var canvas;
 var canvasContext;
@@ -131,7 +132,6 @@ function drawEverything() {
             break;
 
         case 'end':
-            console.log("end")
             drawAllGraphs();
             buttonReplay.draw();
             break;

@@ -37,10 +37,10 @@ class Sim {
         canvasContext.fillText(this.emoji, this.x, this.y + (this.radius * 0.75));
 
         //draw masks and/or soap icon on top of sim emoji
-        if (this.isMasking) {
+        if (this.isMasking && !this.condition.DEAD) {
             canvasContext.drawImage(maskImage, this.x - 7.8, this.y - 0.9, maskImage.width * 0.13, maskImage.height * 0.13);
         }
-        if (this.isWashing) {
+        if (this.isWashing && !this.condition.DEAD) {
             canvasContext.font = "10px Arial";
             canvasContext.textAlign = 'center';
             canvasContext.fillText('🧼', this.x + 10, this.y + 10);
