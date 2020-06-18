@@ -106,6 +106,9 @@ function drawAllGraphs() {
 
     for (var j = allNegativeGraphData.length; j >= 1; j--) {
         for (var i = 0; i < negativeGraphData.length; i++) {
+
+            //this.positiveGraphColor = allPercentTestingPositive[j] >= capacityThreshold * 100 ? 'red' : 'green';
+
             colorLine(i, graphPanelHeight * j, i, graphPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i], "black");
             colorLine(i, graphPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i], i, graphPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i], positiveGraphColor);
             colorLine(i, graphPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i], i, graphPanelHeight * j - allDeadGraphData[allNegativeGraphData.length - j][i] - allPositiveGraphData[allNegativeGraphData.length - j][i] - allNegativeGraphData[allNegativeGraphData.length - j][i], "yellow");

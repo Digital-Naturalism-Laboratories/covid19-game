@@ -4,6 +4,7 @@ var simSpeed = 0.65;
 var basePercentChanceToTransmit = 0.15;
 var baseTransmissionRadius = 40;
 var overCapacityDeathRateMultiplier = 500;
+var initialPositiveSimCount = 1;
 
 var canvas;
 var canvasContext;
@@ -169,9 +170,8 @@ function resetGame() {
 
     }
 
-    //Ensure that at least 2 sims are positive.
-    if (positiveCount < 2) {
-        sims[0].condition = conditions.POSITIVE;
-        sims[1].condition = conditions.POSITIVE;
+    //Sets a number of sims to positive at the start of the game. 
+    for (var i = 0; i < initialPositiveSimCount; i++){
+        sims[i].condition = conditions.POSITIVE;
     }
 }

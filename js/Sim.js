@@ -19,7 +19,7 @@ class Sim {
         this.ySpeed = speed * Math.random() < 0.5 ? (-1 * Math.random()) : (1 * Math.random());
         this.radius = 8;
         this.transmissionRadius = baseTransmissionRadius;
-        this.condition = Math.random() < 0.03 ? conditions.POSITIVE : conditions.NEGATIVE;
+        this.condition = conditions.NEGATIVE;
         this.isMasking = false;
         this.isWashing = false;
         this.timeToRecovery = (Math.random() * 50000); //measured in frames
