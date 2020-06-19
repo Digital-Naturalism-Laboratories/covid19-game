@@ -26,7 +26,6 @@ var allDeadGraphData = [];
 var framesPerGraphIncrement = 12;
 var graphIncrementTimer = framesPerGraphIncrement;
 
-var capacityThreshold = 0.8;
 var isOverCapacity = false;
 var positiveGraphColor = 'green';
 

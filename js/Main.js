@@ -5,6 +5,7 @@ var basePercentChanceToTransmit = 0.15;
 var baseTransmissionRadius = 40;
 var overCapacityDeathRateMultiplier = 5;
 var initialPositiveSimCount = 1;
+var capacityThreshold = 0.6;
 //var lengthOfRound = 60;
 
 var canvas;
