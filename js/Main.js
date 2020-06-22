@@ -6,6 +6,7 @@ var baseTransmissionRadius = 40;
 var overCapacityDeathRateMultiplier = 5;
 var initialPositiveSimCount = 1;
 var capacityThreshold = 0.6;
+var maxWashingStations = 3;
 //var lengthOfRound = 60;
 
 var canvas;
@@ -77,6 +78,11 @@ function moveEverything() {
             buttonMasking.update();
             buttonWashing.update();
             buttonDistancing.update();
+
+            if (washingStations.length > maxWashingStations){
+                washingStations.shift();
+            }
+
             break;
         case 'end':
             break;
@@ -92,9 +98,10 @@ function drawEverything() {
 
             canvasContext.textAlign = 'center';
 
-            canvasContext.font = "40px Arial";
+            canvasContext.font = "36px Arial";
             canvasContext.fillStyle = "black";
-            canvasContext.fillText("Aplanar la Curva", canvas.width * 0.5, canvas.height * 0.25);
+            canvasContext.fillText("APLANA LA CURVA:", canvas.width * 0.5, canvas.height * 0.25);
+            canvasContext.fillText("UNA CARITA A LA VEZ", canvas.width * 0.5, canvas.height * 0.25 + 40);
 
             buttonPlay.draw();
 

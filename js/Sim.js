@@ -107,6 +107,8 @@ class Sim {
             case "dead":
 
                 this.emoji = "💀";
+                this.isMasking = false;
+                this.isWashing = false;
                 deadCount++;
                 return; //exits update function if the sim is dead
 
