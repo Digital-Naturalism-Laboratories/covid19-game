@@ -100,12 +100,25 @@ function drawGraph() {
         colorLine(i + emojiKeyPanelWidth, posLineStart, i + emojiKeyPanelWidth, posLineEnd, positiveGraphColor);
         colorLine(i + emojiKeyPanelWidth, negLineStart, i + emojiKeyPanelWidth, negLineEnd, "yellow");
         colorLine(i + emojiKeyPanelWidth, recLineStart, i + emojiKeyPanelWidth, recLineEnd, "yellow");
-        
+
+    }
+
+    canvasContext.textAlign = 'left';
+    canvasContext.font = "12px Arial";
+    canvasContext.fillStyle = "black";
+
+    canvasContext.fillText("Capacidad Hospitalaria", emojiKeyPanelWidth + 3, canvas.height - (graphPanelHeight * capacityThreshold) - 2);
+
+    if (isOverCapacity) {
+        canvasContext.fillText("⚠️ PELIGRO ⚠️", emojiKeyPanelWidth + 3, canvas.height - (graphPanelHeight * capacityThreshold) - 16);
+        canvasContext.fillText("Excedida!", emojiKeyPanelWidth + 3, canvas.height - (graphPanelHeight * capacityThreshold) + 12);
     }
 
     //draw hospital capacity threshold line
     canvasContext.lineWidth = 1;
     colorLine(emojiKeyPanelWidth, canvas.height - (graphPanelHeight * capacityThreshold), canvas.width, canvas.height - (graphPanelHeight * capacityThreshold), 'darkred');
+
+
 
     //draw emoji color key backgrounds
     colorRect(0, canvas.height - (emojiKeyPanelHeight * 4), emojiKeyPanelWidth, emojiKeyPanelHeight, 'yellow');
@@ -159,7 +172,7 @@ function drawAllGraphs() {
             colorRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 1), emojiKeyPanelWidth, emojiKeyPanelHeight, 'yellow');
             colorRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 2), emojiKeyPanelWidth, emojiKeyPanelHeight, positiveGraphColor);
             colorRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 3), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black');
-        
+
             drawRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 0), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black', 1);
             drawRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 1), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black', 1);
             drawRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 2), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black', 1);
@@ -181,8 +194,8 @@ function drawAllGraphs() {
 
             //draw line to seperate graphs
             canvasContext.lineWidth = 1;
-            colorLine(0, j * graphPanelHeight, canvas.width, j * graphPanelHeight,'black');
- 
+            colorLine(0, j * graphPanelHeight, canvas.width, j * graphPanelHeight, 'black');
+
         }
 
     }
