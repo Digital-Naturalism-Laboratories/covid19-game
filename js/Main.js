@@ -15,7 +15,6 @@ var width = 400;
 var height = 640;
 var sims = [];
 var washingStations = [];
-var graphPanelHeight = 100;
 var buttonPanelHeight = 50;
 var buttonPanelWidth = width / 3;
 var maskImage = document.createElement('img');
@@ -130,7 +129,7 @@ function drawEverything() {
                 sim.draw();
             }
 
-            colorRect(0, canvas.height - graphPanelHeight, canvas.width, canvas.height, 'grey');
+            colorRect(emojiKeyPanelWidth, canvas.height - graphPanelHeight, canvas.width, canvas.height, 'grey');
             drawGraph();
 
             buttonMasking.draw();

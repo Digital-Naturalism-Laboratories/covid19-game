@@ -23,11 +23,14 @@ var allPositiveGraphData = [];
 var allRecoveredGraphData = [];
 var allDeadGraphData = [];
 
-var framesPerGraphIncrement = 12;
+var framesPerGraphIncrement = 15;
 var graphIncrementTimer = framesPerGraphIncrement;
 
 var isOverCapacity = false;
 var positiveGraphColor = 'green';
+var graphPanelHeight = 100;
+var emojiKeyPanelWidth = 70;
+var emojiKeyPanelHeight = graphPanelHeight / 4;
 
 function updateGraphData() {
 
@@ -44,10 +47,6 @@ function updateGraphData() {
         positiveGraphColor = isOverCapacity ? 'red' : 'green';
     }
 
-    //if (isOverCapacity){
-    //    deathRateMultiplier *= 1.01;
-    //}
-
     graphIncrementTimer--;
 
     //save each slice of the graph each time the increment timer reaches 0
@@ -60,7 +59,7 @@ function updateGraphData() {
     }
 
     //save all graph data and go to the results screen when the graph reaches the edge of the window
-    if (positiveGraphData.length >= canvas.width) {
+    if (positiveGraphData.length >= canvas.width - emojiKeyPanelWidth) {
 
         allNegativeGraphData.push(negativeGraphData);
         allPositiveGraphData.push(positiveGraphData);
@@ -97,24 +96,37 @@ function drawGraph() {
         var recLineEnd = recLineStart - recoveredGraphData[i];
 
         //draw graph
-        colorLine(i, deadLineStart, i, deadLineEnd, "black");
-        colorLine(i, posLineStart, i, posLineEnd, positiveGraphColor);
-        colorLine(i, negLineStart, i, negLineEnd, "yellow");
-        colorLine(i, recLineStart, i, recLineEnd, "yellow");
+        colorLine(i + emojiKeyPanelWidth, deadLineStart, i + emojiKeyPanelWidth, deadLineEnd, "black");
+        colorLine(i + emojiKeyPanelWidth, posLineStart, i + emojiKeyPanelWidth, posLineEnd, positiveGraphColor);
+        colorLine(i + emojiKeyPanelWidth, negLineStart, i + emojiKeyPanelWidth, negLineEnd, "yellow");
+        colorLine(i + emojiKeyPanelWidth, recLineStart, i + emojiKeyPanelWidth, recLineEnd, "yellow");
         
     }
 
+    //draw hospital capacity threshold line
     canvasContext.lineWidth = 1;
-    colorLine(0, canvas.height - (graphPanelHeight * capacityThreshold), canvas.width, canvas.height - (graphPanelHeight * capacityThreshold), 'darkred');
+    colorLine(emojiKeyPanelWidth, canvas.height - (graphPanelHeight * capacityThreshold), canvas.width, canvas.height - (graphPanelHeight * capacityThreshold), 'darkred');
+
+    //draw emoji color key backgrounds
+    colorRect(0, canvas.height - (emojiKeyPanelHeight * 4), emojiKeyPanelWidth, emojiKeyPanelHeight, 'yellow');
+    colorRect(0, canvas.height - (emojiKeyPanelHeight * 3), emojiKeyPanelWidth, emojiKeyPanelHeight, 'yellow');
+    colorRect(0, canvas.height - (emojiKeyPanelHeight * 2), emojiKeyPanelWidth, emojiKeyPanelHeight, positiveGraphColor);
+    colorRect(0, canvas.height - (emojiKeyPanelHeight * 1), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black');
+
+    drawRect(0, canvas.height - (emojiKeyPanelHeight * 4), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black', 1);
+    drawRect(0, canvas.height - (emojiKeyPanelHeight * 3), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black', 1);
+    drawRect(0, canvas.height - (emojiKeyPanelHeight * 2), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black', 1);
+    drawRect(0, canvas.height - (emojiKeyPanelHeight * 1), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black', 1);
 
     canvasContext.font = "16px Arial";
-    canvasContext.fillStyle = "black";
     canvasContext.textAlign = 'left';
 
-    canvasContext.fillText("🙂 " + percentTestingNegative + "%", 5, canvas.height - 65);
-    canvasContext.fillText("🤢 " + percentTestingPositive + "%", 5, canvas.height - 45);
-    canvasContext.fillText("😁 " + percentRecovered + "%", 5, canvas.height - 25);
-    canvasContext.fillText("💀 " + percentDead + "%", 5, canvas.height - 5);
+    canvasContext.fillStyle = "black";
+    canvasContext.fillText("😁 " + percentRecovered + "%", 5, canvas.height - (emojiKeyPanelHeight * 3.3));
+    canvasContext.fillText("🙂 " + percentTestingNegative + "%", 5, canvas.height - (emojiKeyPanelHeight * 2.3));
+    canvasContext.fillStyle = "white";
+    canvasContext.fillText("🤢 " + percentTestingPositive + "%", 5, canvas.height - (emojiKeyPanelHeight * 1.3));
+    canvasContext.fillText("💀 " + percentDead + "%", 5, canvas.height - (emojiKeyPanelHeight * 0.3));
 
     drawRect(0, canvas.height - graphPanelHeight, canvas.width, canvas.height, 'black', 2.5);
 }
@@ -138,23 +150,34 @@ function drawAllGraphs() {
             positiveGraphColor = allPercentTestingPositive[length - j] + allPercentDead[length - j] >= capacityThreshold * 100 ? 'red' : 'green';
 
             //draw each graph
-            colorLine(i, deadLineStart, i, deadLineEnd, "black");
-            colorLine(i, posLineStart, i, posLineEnd, positiveGraphColor);
-            colorLine(i, negLineStart, i, negLineEnd, "yellow");
-            colorLine(i, recLineStart, i, recLineEnd, "yellow");
+            colorLine(i + emojiKeyPanelWidth, deadLineStart, i + emojiKeyPanelWidth, deadLineEnd, "black");
+            colorLine(i + emojiKeyPanelWidth, posLineStart, i + emojiKeyPanelWidth, posLineEnd, positiveGraphColor);
+            colorLine(i + emojiKeyPanelWidth, negLineStart, i + emojiKeyPanelWidth, negLineEnd, "yellow");
+            colorLine(i + emojiKeyPanelWidth, recLineStart, i + emojiKeyPanelWidth, recLineEnd, "yellow");
+
+            colorRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 0), emojiKeyPanelWidth, emojiKeyPanelHeight, 'yellow');
+            colorRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 1), emojiKeyPanelWidth, emojiKeyPanelHeight, 'yellow');
+            colorRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 2), emojiKeyPanelWidth, emojiKeyPanelHeight, positiveGraphColor);
+            colorRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 3), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black');
+        
+            drawRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 0), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black', 1);
+            drawRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 1), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black', 1);
+            drawRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 2), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black', 1);
+            drawRect(0, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 3), emojiKeyPanelWidth, emojiKeyPanelHeight, 'black', 1);
 
             canvasContext.font = "16px Arial";
-            canvasContext.fillStyle = "black";
             canvasContext.textAlign = 'left';
 
             //write attempt number on each graph
-            canvasContext.fillText(allNegativeGraphData.length - (j - 1), 8, 20 + ((j - 1) * graphPanelHeight));
+            canvasContext.fillStyle = "black";
+            canvasContext.fillText(allNegativeGraphData.length - (j - 1), emojiKeyPanelWidth + 8, 20 + ((j - 1) * graphPanelHeight));
 
             //write percentage stats to each graph
-            canvasContext.fillText("🙂 " + allPercentTestingNegative[length - j] + "%", 20, graphPanelHeight * (j - 1) + 18);
-            canvasContext.fillText("🤢 " + allPercentTestingPositive[length - j] + "%", 20, graphPanelHeight * (j - 1) + 40);
-            canvasContext.fillText("😁 " + allPercentRecovered[length - j] + "%", 20, graphPanelHeight * (j - 1) + 62);
-            canvasContext.fillText("💀 " + allPercentDead[length - j] + "%", 20, graphPanelHeight * (j - 1) + 84);
+            canvasContext.fillText("🙂 " + allPercentTestingNegative[length - j] + "%", 5, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 0.66));
+            canvasContext.fillText("🤢 " + allPercentTestingPositive[length - j] + "%", 5, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 1.66));
+            canvasContext.fillStyle = "white";
+            canvasContext.fillText("😁 " + allPercentRecovered[length - j] + "%", 5, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 2.66));
+            canvasContext.fillText("💀 " + allPercentDead[length - j] + "%", 5, graphPanelHeight * (j - 1) + (emojiKeyPanelHeight * 3.66));
 
             //draw line to seperate graphs
             canvasContext.lineWidth = 1;
