@@ -8,8 +8,13 @@ function handleClick(evt) {
 
     switch (gameState) {
         case 'start':
+            buttonNext.handleClick(xPos, yPos);
+            break;
+
+        case 'instructions':
             buttonPlay.handleClick(xPos, yPos);
             break;
+
         case 'main':
             buttonMasking.handleClick(xPos, yPos);
             buttonWashing.handleClick(xPos, yPos);

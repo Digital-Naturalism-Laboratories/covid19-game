@@ -11,18 +11,18 @@ class Button {
         this.isEnabled = startsEnabled;
         this.bgColor = 'blue';
 
-        if (this.isToggle){
+        if (this.isToggle) {
             toggleButtons.push(this);
         }
     }
 
-    update(){
+    update() {
         this.bgColor = this.isEnabled ? 'orange' : 'blue';
 
-        if (buttonMasking.isEnabled == true){
+        if (buttonMasking.isEnabled == true) {
             interactionMode = interactionModes.MASKING;
         }
-        if (buttonWashing.isEnabled == true){
+        if (buttonWashing.isEnabled == true) {
             interactionMode = interactionModes.WASHING;
         }
 
@@ -41,32 +41,39 @@ class Button {
 
     handleClick(xClick, yClick) {
         if (DistanceBetweenTwoPixelCoords(xClick, yClick, this.x, this.y) < this.radius) {
-            
-            if (this.isToggle){
 
-                if (this == buttonMasking){
+            if (this.isToggle) {
+
+                if (this == buttonMasking) {
                     this.isEnabled = true;
                     buttonWashing.toggleOff();
                 }
 
-                if (this == buttonWashing){
+                if (this == buttonWashing) {
                     this.isEnabled = true;
                     buttonMasking.toggleOff();
                 }
 
-                if (this == buttonDistancing){
+                if (this == buttonDistancing) {
                     this.isEnabled = !this.isEnabled;
                 }
 
             } else {
-                gameState = gameStates.MAIN;
-                resetGame();
+
+                if (gameState == gameStates.START) {
+                    gameState = gameStates.INSTRUCTIONS;
+                } else {
+                    gameState = gameStates.MAIN;
+                    resetGame();
+                }
+
+
             }
 
         }
     }
 
-    toggleOff(){
+    toggleOff() {
         this.isEnabled = false;
     }
 }

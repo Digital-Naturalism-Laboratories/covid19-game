@@ -21,6 +21,7 @@ var maskImage = document.createElement('img');
 
 var gameStates = {
     START: "start",
+    INSTRUCTIONS: 'instructions',
     MAIN: "main",
     END: "end",
 };
@@ -44,7 +45,8 @@ window.onload = function () {
 
     resetGame();
 
-    buttonPlay = new Button(width / 2, height / 2, '▶️', 50, 100, false, true);
+    buttonNext = new Button(width / 2, height - 75, '▶️', 50, 100, false, true);
+    buttonPlay = new Button(width / 2, height - 75, '▶️', 50, 100, false, true);
     buttonReplay = new Button(width / 2, height - 75, '🔄', 50, 100, false, true);
 
     buttonMasking = new Button(width * (1 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '😷', (buttonPanelHeight / 2), 30, true, true);
@@ -69,6 +71,8 @@ function moveEverything() {
     switch (gameState) {
         case 'start':
             break;
+        case 'instructions':
+            break;
         case 'main':
             for (var sim of sims) {
                 sim.update();
@@ -78,7 +82,7 @@ function moveEverything() {
             buttonWashing.update();
             buttonDistancing.update();
 
-            if (washingStations.length > maxWashingStations){
+            if (washingStations.length > maxWashingStations) {
                 washingStations.shift();
             }
 
@@ -102,21 +106,69 @@ function drawEverything() {
             canvasContext.fillText("APLANA LA CURVA:", canvas.width * 0.5, canvas.height * 0.25);
             canvasContext.fillText("UNA CARITA A LA VEZ", canvas.width * 0.5, canvas.height * 0.25 + 40);
 
-            buttonPlay.draw();
+            buttonNext.draw();
+            /*
+                        canvasContext.font = "100px Arial";
+                        canvasContext.fillText("🤢", canvas.width * 0.30, canvas.height * 0.80);
+                        canvasContext.fillText("🤢", canvas.width * 0.70, canvas.height * 0.80);
+                        canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.74), maskImage.width * 0.8, maskImage.height * 0.8);
 
-            canvasContext.font = "100px Arial";
-            canvasContext.fillText("🤢", canvas.width * 0.30, canvas.height * 0.80);
-            canvasContext.fillText("🤢", canvas.width * 0.70, canvas.height * 0.80);
-            canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.74), maskImage.width * 0.8, maskImage.height * 0.8);
+                        canvasContext.font = "60px Arial";
+                        canvasContext.fillText("👉", canvas.width * 0.22, canvas.height * 0.72);
 
-            canvasContext.font = "60px Arial";
-            canvasContext.fillText("👉", canvas.width * 0.22, canvas.height * 0.72);
-
-            canvasContext.font = "30px Arial";
-            canvasContext.fillText("➡️", canvas.width * 0.50, canvas.height * 0.765);
+                        canvasContext.font = "30px Arial";
+                        canvasContext.fillText("➡️", canvas.width * 0.50, canvas.height * 0.765);
+            */
 
             break;
+        case 'instructions':
+            canvasContext.font = "14px Arial";
+            canvasContext.fillStyle = "black";
+            canvasContext.textAlign = 'center';
 
+            //draw instructions for clicking on sick sims.
+            canvasContext.fillText("Haz click sobre la carita enferma para", canvas.width * 0.50, canvas.height * 0.10);
+            canvasContext.fillText("ponerle mascarilla y evitar el contagio.", canvas.width * 0.50, canvas.height * 0.13);
+            canvasContext.textAlign = 'center';
+            canvasContext.font = "80px Arial";
+            canvasContext.fillText("🤢", canvas.width * 0.30, canvas.height * 0.25);
+            canvasContext.fillText("🤢", canvas.width * 0.70, canvas.height * 0.25);
+            canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.19), maskImage.width * 0.8, maskImage.height * 0.8);
+            canvasContext.font = "40px Arial";
+            canvasContext.fillText("👉", canvas.width * 0.50, canvas.height * 0.21);
+
+            //draw instructions for clicking on healthy sims.
+            canvasContext.font = "14px Arial";
+            canvasContext.fillStyle = "black";
+            canvasContext.textAlign = 'center';
+            canvasContext.fillText("Haz click sobre la carita saludable para", canvas.width * 0.50, canvas.height * 0.33);
+            canvasContext.fillText("ponerle mascarilla y protegerla del contagio.", canvas.width * 0.50, canvas.height * 0.36);
+            canvasContext.textAlign = 'center';
+            canvasContext.font = "80px Arial";
+            canvasContext.fillText("🙂", canvas.width * 0.30, canvas.height * 0.50);
+            canvasContext.fillText("🙂", canvas.width * 0.70, canvas.height * 0.50);
+            canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.44), maskImage.width * 0.8, maskImage.height * 0.8);
+            canvasContext.font = "40px Arial";
+            canvasContext.fillText("👉", canvas.width * 0.50, canvas.height * 0.46);
+
+            //draw instructions for clicking on washing stations.
+            /*canvasContext.font = "14px Arial";
+            canvasContext.fillStyle = "black";
+            canvasContext.textAlign = 'center';
+            canvasContext.fillText("Haz click sobre el jabón para introducir estaciones", canvas.width * 0.50, canvas.height * 0.33);
+            canvasContext.fillText("de lavado para que las caritas se laven las manos.", canvas.width * 0.50, canvas.height * 0.36);
+            canvasContext.textAlign = 'center';
+            canvasContext.font = "80px Arial";
+            canvasContext.fillText("🙂", canvas.width * 0.30, canvas.height * 0.50);
+            canvasContext.fillText("🙂", canvas.width * 0.70, canvas.height * 0.50);
+            canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.74), maskImage.width * 0.8, maskImage.height * 0.50);
+            canvasContext.font = "40px Arial";
+            canvasContext.fillText("👉", canvas.width * 0.50, canvas.height * 0.46);
+*/
+            //canvasContext.font = "30px Arial";
+            //canvasContext.fillText("➡️", canvas.width * 0.50, canvas.height * 0.765);
+            buttonPlay.draw();
+            break;
         case 'main':
 
             for (var sim of sims) {
@@ -177,7 +229,7 @@ function resetGame() {
     }
 
     //Sets a number of sims to positive at the start of the game. 
-    for (var i = 0; i < initialPositiveSimCount; i++){
+    for (var i = 0; i < initialPositiveSimCount; i++) {
         sims[i].condition = conditions.POSITIVE;
     }
 }
