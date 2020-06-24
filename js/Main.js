@@ -107,66 +107,62 @@ function drawEverything() {
             canvasContext.fillText("UNA CARITA A LA VEZ", canvas.width * 0.5, canvas.height * 0.25 + 40);
 
             buttonNext.draw();
-            /*
-                        canvasContext.font = "100px Arial";
-                        canvasContext.fillText("🤢", canvas.width * 0.30, canvas.height * 0.80);
-                        canvasContext.fillText("🤢", canvas.width * 0.70, canvas.height * 0.80);
-                        canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.74), maskImage.width * 0.8, maskImage.height * 0.8);
-
-                        canvasContext.font = "60px Arial";
-                        canvasContext.fillText("👉", canvas.width * 0.22, canvas.height * 0.72);
-
-                        canvasContext.font = "30px Arial";
-                        canvasContext.fillText("➡️", canvas.width * 0.50, canvas.height * 0.765);
-            */
 
             break;
         case 'instructions':
-            canvasContext.font = "14px Arial";
+            canvasContext.font = "12px Arial";
             canvasContext.fillStyle = "black";
             canvasContext.textAlign = 'center';
 
             //draw instructions for clicking on sick sims.
-            canvasContext.fillText("Haz click sobre la carita enferma para", canvas.width * 0.50, canvas.height * 0.10);
-            canvasContext.fillText("ponerle mascarilla y evitar el contagio.", canvas.width * 0.50, canvas.height * 0.13);
+            canvasContext.fillText("Haz click sobre la carita enferma para", canvas.width * 0.50, canvas.height * 0.03);
+            canvasContext.fillText("ponerle mascarilla y evitar el contagio.", canvas.width * 0.50, canvas.height * 0.06);
             canvasContext.textAlign = 'center';
             canvasContext.font = "80px Arial";
-            canvasContext.fillText("🤢", canvas.width * 0.30, canvas.height * 0.25);
-            canvasContext.fillText("🤢", canvas.width * 0.70, canvas.height * 0.25);
-            canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.19), maskImage.width * 0.8, maskImage.height * 0.8);
+            canvasContext.fillText("🤢", canvas.width * 0.30, canvas.height * 0.18);
+            canvasContext.fillText("🤢", canvas.width * 0.70, canvas.height * 0.18);
+            canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.12), maskImage.width * 0.8, maskImage.height * 0.8);
             canvasContext.font = "40px Arial";
-            canvasContext.fillText("👉", canvas.width * 0.50, canvas.height * 0.21);
+            canvasContext.fillText("👉", canvas.width * 0.50, canvas.height * 0.14);
 
             //draw instructions for clicking on healthy sims.
+            canvasContext.font = "12px Arial";
+            canvasContext.fillStyle = "black";
+            canvasContext.textAlign = 'center';
+            canvasContext.fillText("Haz click sobre la carita saludable para", canvas.width * 0.50, canvas.height * 0.23);
+            canvasContext.fillText("ponerle mascarilla y protegerla del contagio.", canvas.width * 0.50, canvas.height * 0.26);
+            canvasContext.textAlign = 'center';
+            canvasContext.font = "80px Arial";
+            canvasContext.fillText("🙂", canvas.width * 0.30, canvas.height * 0.38);
+            canvasContext.fillText("🙂", canvas.width * 0.70, canvas.height * 0.38);
+            canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.32), maskImage.width * 0.8, maskImage.height * 0.8);
+            canvasContext.font = "40px Arial";
+            canvasContext.fillText("👉", canvas.width * 0.50, canvas.height * 0.34);
+
+            //draw instructions for clicking on washing stations.
             canvasContext.font = "14px Arial";
             canvasContext.fillStyle = "black";
             canvasContext.textAlign = 'center';
-            canvasContext.fillText("Haz click sobre la carita saludable para", canvas.width * 0.50, canvas.height * 0.33);
-            canvasContext.fillText("ponerle mascarilla y protegerla del contagio.", canvas.width * 0.50, canvas.height * 0.36);
+            canvasContext.fillText("Haz click sobre el jabón para introducir estaciones", canvas.width * 0.50, canvas.height * 0.43);
+            canvasContext.fillText("de lavado para que las caritas se laven las manos.", canvas.width * 0.50, canvas.height * 0.46);
             canvasContext.textAlign = 'center';
             canvasContext.font = "80px Arial";
-            canvasContext.fillText("🙂", canvas.width * 0.30, canvas.height * 0.50);
-            canvasContext.fillText("🙂", canvas.width * 0.70, canvas.height * 0.50);
-            canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.44), maskImage.width * 0.8, maskImage.height * 0.8);
+            canvasContext.fillText("🧼", canvas.width * 0.70, canvas.height * 0.58);
             canvasContext.font = "40px Arial";
-            canvasContext.fillText("👉", canvas.width * 0.50, canvas.height * 0.46);
+            canvasContext.fillText("👉", canvas.width * 0.50, canvas.height * 0.54);
 
-            //draw instructions for clicking on washing stations.
-            /*canvasContext.font = "14px Arial";
+            //draw instructions for clicking on social distancing.
+            canvasContext.font = "14px Arial";
             canvasContext.fillStyle = "black";
             canvasContext.textAlign = 'center';
-            canvasContext.fillText("Haz click sobre el jabón para introducir estaciones", canvas.width * 0.50, canvas.height * 0.33);
-            canvasContext.fillText("de lavado para que las caritas se laven las manos.", canvas.width * 0.50, canvas.height * 0.36);
+            canvasContext.fillText("Haz click en el símbolo de la regla para introducirla entre las", canvas.width * 0.50, canvas.height * 0.63);
+            canvasContext.fillText("caritas y así mantengan una distancia de 2 m entre cada una.", canvas.width * 0.50, canvas.height * 0.66);
             canvasContext.textAlign = 'center';
             canvasContext.font = "80px Arial";
-            canvasContext.fillText("🙂", canvas.width * 0.30, canvas.height * 0.50);
-            canvasContext.fillText("🙂", canvas.width * 0.70, canvas.height * 0.50);
-            canvasContext.drawImage(maskImage, (canvas.width * 0.73) - (maskImage.width / 2), (canvas.height * 0.74), maskImage.width * 0.8, maskImage.height * 0.50);
+            canvasContext.fillText("📏", canvas.width * 0.70, canvas.height * 0.78);
             canvasContext.font = "40px Arial";
-            canvasContext.fillText("👉", canvas.width * 0.50, canvas.height * 0.46);
-*/
-            //canvasContext.font = "30px Arial";
-            //canvasContext.fillText("➡️", canvas.width * 0.50, canvas.height * 0.765);
+            canvasContext.fillText("👉", canvas.width * 0.50, canvas.height * 0.74);
+
             buttonPlay.draw();
             break;
         case 'main':
