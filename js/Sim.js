@@ -22,7 +22,7 @@ class Sim {
         this.condition = conditions.NEGATIVE;
         this.isMasking = false;
         this.isWashing = false;
-        this.timeToRecovery = (Math.random() * 50000); //measured in frames
+        this.timeToRecovery = (Math.random() * 1000) + (60 * 30); //measured in frames
         this.percentChanceToTransmit = basePercentChanceToTransmit;
         this.collitionTimeDuration = 20; //measured in frames
         this.collisionTimer = this.collitionTimeDuration; //measured in frames
@@ -137,7 +137,7 @@ class Sim {
         }
 
         //bounce the sim off the top and bottom walls on collision
-        if (this.yNextFrame - (this.radius) < 0 || this.yNextFrame + (this.radius) > height - graphPanelHeight - buttonPanelHeight) {
+        if (this.yNextFrame - (this.radius) < 0 || this.yNextFrame + (this.radius) > height - graphPanelHeight - buttonPanelHeight - bannerHeight) {
             this.ySpeed *= -1;
         }
 

@@ -7,7 +7,6 @@ var overCapacityDeathRateMultiplier = 5;
 var initialPositiveSimCount = 1;
 var capacityThreshold = 0.6;
 var maxWashingStations = 3;
-//var lengthOfRound = 60;
 
 var canvas;
 var canvasContext;
@@ -49,9 +48,9 @@ window.onload = function () {
     buttonPlay = new Button(width / 2, height - 75, '▶️', 50, 100, false, true);
     buttonReplay = new Button(width / 2, height - 75, '🔄', 50, 100, false, true);
 
-    buttonMasking = new Button(width * (1 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '😷', (buttonPanelHeight / 2), 30, true, true);
-    buttonWashing = new Button(width * (3 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '🧼', (buttonPanelHeight / 2), 30, true, false);
-    buttonDistancing = new Button(width * (5 / 6), canvas.height - graphPanelHeight - (buttonPanelHeight / 2), '📏', (buttonPanelHeight / 2), 30, true, false);
+    buttonMasking = new Button(width * (1 / 6), canvas.height - graphPanelHeight - bannerHeight - (buttonPanelHeight / 2), '😷', (buttonPanelHeight / 2), 30, true, true);
+    buttonWashing = new Button(width * (3 / 6), canvas.height - graphPanelHeight - bannerHeight - (buttonPanelHeight / 2), '🧼', (buttonPanelHeight / 2), 30, true, false);
+    buttonDistancing = new Button(width * (5 / 6), canvas.height - graphPanelHeight - bannerHeight - (buttonPanelHeight / 2), '📏', (buttonPanelHeight / 2), 30, true, false);
 
     initRenderLoop();
 }
@@ -177,8 +176,9 @@ function drawEverything() {
                 sim.draw();
             }
 
-            colorRect(emojiKeyPanelWidth, canvas.height - graphPanelHeight, canvas.width, canvas.height, 'grey');
+            colorRect(emojiKeyPanelWidth, canvas.height - graphPanelHeight, canvas.width, canvas.height, 'Gainsboro');
             drawGraph();
+            drawBanner();
 
             buttonMasking.draw();
             buttonWashing.draw();
@@ -189,6 +189,7 @@ function drawEverything() {
         case 'end':
             drawAllGraphs();
             buttonReplay.draw();
+            buttonDistancing.toggleOff();
             break;
     }
 
@@ -208,7 +209,7 @@ function resetGame() {
     positiveGraphColor = 'green';
 
     for (i = 0; i < simCount; i++) {
-        sims[i] = new Sim(Math.random() * width, (Math.random() * height) - graphPanelHeight - buttonPanelHeight - 10, simSpeed);
+        sims[i] = new Sim(Math.random() * width, (Math.random() * height) - graphPanelHeight - buttonPanelHeight - bannerHeight - 10, simSpeed);
 
         //Prevent sims from spawning on top of each other.
         for (var sim of sims) {
@@ -216,9 +217,9 @@ function resetGame() {
                 sim.x < sim.radius ||
                 sim.x > (canvas.width - sim.radius) ||
                 sim.y < sim.radius ||
-                sim.y > (canvas.height - this.graphPanelHeight - sim.radius)) {
+                sim.y > (canvas.height - this.graphPanelHeight - bannerHeight - sim.radius)) {
                 sims[i].x = Math.random() * width;
-                sims[i].y = (Math.random() * height) - graphPanelHeight - buttonPanelHeight - 10;
+                sims[i].y = (Math.random() * height) - graphPanelHeight -bannerHeight - buttonPanelHeight - 10;
             }
         }
 

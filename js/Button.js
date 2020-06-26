@@ -17,7 +17,7 @@ class Button {
     }
 
     update() {
-        this.bgColor = this.isEnabled ? 'orange' : 'blue';
+        this.bgColor = this.isEnabled ? 'DarkOrange' : 'blue';
 
         if (buttonMasking.isEnabled == true) {
             interactionMode = interactionModes.MASKING;
@@ -31,6 +31,7 @@ class Button {
     draw() {
         if (this.isToggle) {
             colorRect(this.x - (buttonPanelWidth / 2), this.y - (buttonPanelHeight / 2), buttonPanelWidth, buttonPanelHeight, this.bgColor);
+            canvasContext.lineWidth = 2;
             drawRect(this.x - (buttonPanelWidth / 2), this.y - (buttonPanelHeight / 2), buttonPanelWidth, buttonPanelHeight, 'black');
         }
 

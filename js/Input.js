@@ -20,7 +20,7 @@ function handleClick(evt) {
             buttonWashing.handleClick(xPos, yPos);
             buttonDistancing.handleClick(xPos, yPos);
 
-            if (yPos < canvas.height - (graphPanelHeight + buttonPanelHeight)) {
+            if (yPos < canvas.height - (graphPanelHeight + buttonPanelHeight + bannerHeight)) {
                 switch (interactionMode) {
                     case 'masking':
                         var closestsim = null;
