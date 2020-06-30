@@ -2,26 +2,32 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
     <title>Aplanar la Curva</title>
     <style>
-        body { padding-left: 0; padding-right: 0; margin-left: auto; margin-right: auto; display: block; width: 400px; overflow: scroll; }
-        #gameCanvas { margin:0; padding:0; }
+        html,
+        body {
+            margin: 0;
+            border: 0;
+            display: block;
+            overflow: hidden;
+        }
     </style>
 </head>
-<canvas id="gameCanvas" width="400" height="640"></canvas>
 
-<script src="js\Sim.js"></script>
-<script src="js\WashingStation.js"></script>
-<script src="js\GraphicsCommon.js"></script>
-<script src="js\Utilities.js"></script>
-<script src="js\Button.js"></script>
-<script src="js\Main.js"></script>
-<script src="js\Input.js"></script>
-<script src="js\Graph.js"></script>
+<body>
+    <canvas id="gameCanvas"></canvas>
 
+    <script src="js\Sim.js"></script>
+    <script src="js\WashingStation.js"></script>
+    <script src="js\GraphicsCommon.js"></script>
+    <script src="js\Utilities.js"></script>
+    <script src="js\Button.js"></script>
+    <script src="js\Main.js"></script>
+    <script src="js\Input.js"></script>
+    <script src="js\Graph.js"></script>
 </body>
 
 </html>

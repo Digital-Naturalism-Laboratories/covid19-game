@@ -19,6 +19,11 @@ class Button {
     update() {
         this.bgColor = this.isEnabled ? 'DarkOrange' : 'blue';
 
+        //the social distancing button is always blue
+        if (this == buttonDistancing) {
+            this.bgColor = 'blue';
+        }
+
         if (buttonMasking.isEnabled == true) {
             interactionMode = interactionModes.MASKING;
         }
@@ -35,9 +40,42 @@ class Button {
             drawRect(this.x - (buttonPanelWidth / 2), this.y - (buttonPanelHeight / 2), buttonPanelWidth, buttonPanelHeight, 'black');
         }
 
+
         canvasContext.font = this.fontSize + "px Arial";
         canvasContext.textAlign = 'center';
-        canvasContext.fillText(this.emoji, this.x, this.y + (this.radius * 0.45));
+
+        if (this == buttonDistancing) {
+            canvasContext.fillText(this.emoji, this.x - 25, this.y + (this.radius * 0.17));
+
+            if (this.isEnabled) { //draw social distancing "On" indicator
+
+                colorRect(this.x + 10, this.y - 8, 30, 20, "darkgreen");
+                colorCircle(this.x + 10, this.y + 2, 10, "darkgreen");
+                colorCircle(this.x + 10 + 30, this.y + 2, 10, "darkgreen");
+
+                canvasContext.font = "14px Arial";
+                canvasContext.fillStyle = "white";
+
+                canvasContext.fillText("On", this.x + 17, this.y + 8);
+                colorCircle(this.x + 10 + 30, this.y + 2, 10, "lightgreen");
+
+            } else { //draw social distancing "Off" indicator
+
+                colorRect(this.x + 10, this.y - 8, 30, 20, "darkred");
+                colorCircle(this.x + 10, this.y + 2, 10, "darkred");
+                colorCircle(this.x + 10 + 30, this.y + 2, 10, "darkred");
+
+                canvasContext.font = "14px Arial";
+                canvasContext.fillStyle = "white";
+
+                canvasContext.fillText("Off", this.x + 32, this.y + 8);
+                colorCircle(this.x + 10, this.y + 2, 10, "red");
+            }
+
+        } else {
+            canvasContext.fillText(this.emoji, this.x, this.y + (this.radius * 0.17));
+        }
+
     }
 
     handleClick(xClick, yClick) {
@@ -45,18 +83,22 @@ class Button {
 
             if (this.isToggle) {
 
-                if (this == buttonMasking) {
-                    this.isEnabled = true;
-                    buttonWashing.toggleOff();
-                }
+                if (yClick > canvas.height - (graphPanelHeight + bannerHeight + buttonPanelHeight) &&
+                    yClick <  canvas.height - (graphPanelHeight + bannerHeight)) {
 
-                if (this == buttonWashing) {
-                    this.isEnabled = true;
-                    buttonMasking.toggleOff();
-                }
+                    if (this == buttonMasking) {
+                        this.isEnabled = true;
+                        buttonWashing.toggleOff();
+                    }
 
-                if (this == buttonDistancing) {
-                    this.isEnabled = !this.isEnabled;
+                    if (this == buttonWashing) {
+                        this.isEnabled = true;
+                        buttonMasking.toggleOff();
+                    }
+
+                    if (this == buttonDistancing) {
+                        this.isEnabled = !this.isEnabled;
+                    }
                 }
 
             } else {

@@ -3,8 +3,8 @@ document.addEventListener("mousedown", handleClick);
 
 function handleClick(evt) {
 
-    var xPos = evt.clientX - canvas.getBoundingClientRect().left;
-    var yPos = evt.clientY - canvas.getBoundingClientRect().top;
+    var xPos = (evt.clientX - canvas.getBoundingClientRect().left) * scaleFactor;
+    var yPos = (evt.clientY - canvas.getBoundingClientRect().top) * scaleFactor;
 
     switch (gameState) {
         case 'start':
@@ -20,7 +20,7 @@ function handleClick(evt) {
             buttonWashing.handleClick(xPos, yPos);
             buttonDistancing.handleClick(xPos, yPos);
 
-            if (yPos < canvas.height - (graphPanelHeight + buttonPanelHeight + bannerHeight)) {
+            if (yPos < height - (graphPanelHeight + buttonPanelHeight + bannerHeight)) {
                 switch (interactionMode) {
                     case 'masking':
                         var closestsim = null;
