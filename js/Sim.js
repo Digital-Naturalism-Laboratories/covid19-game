@@ -26,7 +26,7 @@ class Sim {
         this.percentChanceToTransmit = basePercentChanceToTransmit;
         this.collitionTimeDuration = 20; //measured in frames
         this.collisionTimer = this.collitionTimeDuration; //measured in frames
-        this.asymptomatic = Math.random() < 0.05 ? true : false;
+        this.asymptomatic = Math.random() < 0.1 ? true : false;
     }
 
     draw() {
@@ -156,14 +156,15 @@ class Sim {
                 }
 
                 //if distancing mode is enabled, change direction when when in a sims transmission radius
-                if (interactionMode == interactionModes.DISTANCING) {
+                if (buttonDistancing.isEnabled) {
                     this.randomizeDirection();
                 }
+
             }
 
             //modify distancing radius and sim speed when distancing mode is enabled
             if (buttonDistancing.isEnabled) {
-                var distancingRadius = this.radius * 2;
+                var distancingRadius = this.radius * 5;
                 this.speedMultiplier = 0.5;
             } else {
                 distancingRadius = this.radius;
