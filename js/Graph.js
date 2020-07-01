@@ -37,8 +37,6 @@ var bannerHeight = 25;
 
 function updateGraphData() {
 
-    //graphPanelWidth = width - emojiKeyPanelWidth;
-
     //calculate condition percentages
     percentTestingNegative = Math.floor(((negativeCount) / simCount) * 100);
     percentTestingPositive = Math.floor((positiveCount / simCount) * 100);

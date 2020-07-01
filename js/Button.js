@@ -56,20 +56,20 @@ class Button {
                 canvasContext.font = "14px Arial";
                 canvasContext.fillStyle = "white";
 
-                canvasContext.fillText("On", this.x + 17, this.y + 8);
+                //canvasContext.fillText("En", this.x + 17, this.y + 8);
                 colorCircle(this.x + 10 + 30, this.y + 2, 10, "lightgreen");
 
             } else { //draw social distancing "Off" indicator
 
-                colorRect(this.x + 10, this.y - 8, 30, 20, "darkred");
-                colorCircle(this.x + 10, this.y + 2, 10, "darkred");
-                colorCircle(this.x + 10 + 30, this.y + 2, 10, "darkred");
+                colorRect(this.x + 10, this.y - 8, 30, 20, "lightslategrey");
+                colorCircle(this.x + 10, this.y + 2, 10, "lightslategrey");
+                colorCircle(this.x + 10 + 30, this.y + 2, 10, "lightslategrey");
 
-                canvasContext.font = "14px Arial";
+                canvasContext.font = "10px Arial";
                 canvasContext.fillStyle = "white";
 
-                canvasContext.fillText("Off", this.x + 32, this.y + 8);
-                colorCircle(this.x + 10, this.y + 2, 10, "red");
+                //canvasContext.fillText("Apagada", this.x + 32, this.y + 8);
+                colorCircle(this.x + 10, this.y + 2, 10, "lightsteelblue");
             }
 
         } else {

@@ -17,6 +17,7 @@ var washingStations = [];
 var buttonPanelHeight = 50;
 var buttonPanelWidth = width / 3;
 var maskImage = document.createElement('img');
+var curveGraphImage = document.createElement('img');
 var scaleFactor;
 var aspectRatio;
 
@@ -44,14 +45,15 @@ window.onload = function () {
 
     //load mask image
     maskImage.src = 'images/mask.png';
+    curveGraphImage.src = 'images/curve-graph.png'
 
     initDisplayDimensions();
 
     resetGame();
 
-    buttonNext = new Button(width / 2, height * 0.88, '▶️', 50, 100, false, true);
-    buttonPlay = new Button(width / 2, height * 0.88, '▶️', 50, 100, false, true);
-    buttonReplay = new Button(width / 2, height * 0.88, '🔄', 50, 100, false, true);
+    buttonNext = new Button(width / 2, height * 0.95, '▶️', 50, 100, false, true);
+    buttonPlay = new Button(width / 2, height * 0.95, '▶️', 50, 100, false, true);
+    buttonReplay = new Button(width / 2, height * 0.95, '🔄', 50, 100, false, true);
 
     buttonMasking = new Button(width * (1 / 6), height - graphPanelHeight - bannerHeight - (buttonPanelHeight / 2), '😷', (buttonPanelWidth / 2), 30, true, true);
     buttonWashing = new Button(width * (3 / 6), height - graphPanelHeight - bannerHeight - (buttonPanelHeight / 2), '🧼', (buttonPanelWidth / 2), 30, true, false);
@@ -107,8 +109,9 @@ function drawEverything() {
 
             canvasContext.font = "36px Arial";
             canvasContext.fillStyle = "black";
-            canvasContext.fillText("APLANA LA CURVA:", width * 0.5, height * 0.25);
-            canvasContext.fillText("UNA CARITA A LA VEZ", width * 0.5, height * 0.25 + 40);
+            canvasContext.drawImage(curveGraphImage, 0, height * 0.25, curveGraphImage.width, curveGraphImage.height);
+            canvasContext.fillText("APLANA LA CURVA:", width * 0.5, height * 0.27);
+            canvasContext.fillText("UNA CARITA A LA VEZ", width * 0.5, height * 0.46);
 
             buttonNext.draw();
 
@@ -236,7 +239,7 @@ function resetGame() {
     }
 }
 
-function initDisplayDimensions(){
+function initDisplayDimensions() {
 
     if (window.innerHeight < window.innerWidth) { //if landscape
 
