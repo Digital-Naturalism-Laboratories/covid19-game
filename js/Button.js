@@ -45,31 +45,35 @@ class Button {
         canvasContext.textAlign = 'center';
 
         if (this == buttonDistancing) {
-            canvasContext.fillText(this.emoji, this.x - 25, this.y + (this.radius * 0.17));
+            canvasContext.fillText(this.emoji, this.x - 25, this.y + 5);
+            canvasContext.fillStyle = "white";
+            canvasContext.font = "12px Arial";
+            canvasContext.fillText("Distanciamiento Social", this.x, this.y + 20);
+            canvasContext.font = this.fontSize + "px Arial";
 
             if (this.isEnabled) { //draw social distancing "On" indicator
 
-                colorRect(this.x + 10, this.y - 8, 30, 20, "darkgreen");
-                colorCircle(this.x + 10, this.y + 2, 10, "darkgreen");
-                colorCircle(this.x + 10 + 30, this.y + 2, 10, "darkgreen");
+                colorRect(this.x + 10, this.y - 16, 30, 20, "darkgreen");
+                colorCircle(this.x + 10, this.y - 6, 10, "darkgreen");
+                colorCircle(this.x + 10 + 30, this.y - 6, 10, "darkgreen");
 
                 canvasContext.font = "14px Arial";
                 canvasContext.fillStyle = "white";
 
                 //canvasContext.fillText("En", this.x + 17, this.y + 8);
-                colorCircle(this.x + 10 + 30, this.y + 2, 10, "lightgreen");
+                colorCircle(this.x + 10 + 30, this.y - 6, 10, "lightgreen");
 
             } else { //draw social distancing "Off" indicator
 
-                colorRect(this.x + 10, this.y - 8, 30, 20, "lightslategrey");
-                colorCircle(this.x + 10, this.y + 2, 10, "lightslategrey");
-                colorCircle(this.x + 10 + 30, this.y + 2, 10, "lightslategrey");
+                colorRect(this.x + 10, this.y - 16, 30, 20, "darkred");
+                colorCircle(this.x + 10, this.y - 6, 10, "darkred");
+                colorCircle(this.x + 10 + 30, this.y - 6, 10, "darkred");
 
                 canvasContext.font = "10px Arial";
                 canvasContext.fillStyle = "white";
 
                 //canvasContext.fillText("Apagada", this.x + 32, this.y + 8);
-                colorCircle(this.x + 10, this.y + 2, 10, "lightsteelblue");
+                colorCircle(this.x + 10, this.y - 6, 10, "red");
             }
 
         } else {
