@@ -17,11 +17,11 @@ class Button {
     }
 
     update() {
-        this.bgColor = this.isEnabled ? '#ed8300' : '#009ada';
 
-        //the social distancing button is always blue
         if (this == buttonDistancing) {
-            this.bgColor = '#1055b7';
+            this.bgColor = this.isEnabled ? '#ed8300' : '#1055b7';
+        } else {
+            this.bgColor = this.isEnabled ? '#ed8300' : '#009ada';
         }
 
         if (buttonMasking.isEnabled == true) {
