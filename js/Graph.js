@@ -203,7 +203,7 @@ function drawAllGraphs() {
             canvasContext.fillText(allPercentTestingPositive[length - j] + "% Enfermos", 30, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2.66));
             canvasContext.fillStyle = "white";
             canvasContext.fillText(allPercentRecovered[length - j] + "% Recuperado", 30, graphPanelHeight * (j) + (emojiKeyPanelHeight * 0.66));
-            canvasContext.fillText(allPercentDead[length - j] + "% Muerto", 30, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3.66));
+            canvasContext.fillText(allPercentDead[length - j] + "% Fallecido", 30, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3.66));
 
             //Draw lines to seperate graphs
             canvasContext.lineWidth = 1;
