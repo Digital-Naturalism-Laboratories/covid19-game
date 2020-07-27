@@ -129,17 +129,19 @@ function drawGraph() {
     //Draw face icons for each graph
     canvasContext.drawImage(cured_face, 5, height - (emojiKeyPanelHeight * 3.4) - 10, cured_face.width * 0.08, cured_face.height * 0.08);
     canvasContext.drawImage(healthy_face, 5, height - (emojiKeyPanelHeight * 2.4) - 10, healthy_face.width * 0.08, healthy_face.height * 0.08);
+    canvasContext.drawImage(mask, 5, height - (emojiKeyPanelHeight * 2.4) - 10, healthy_face.width * 0.08, healthy_face.height * 0.08);
     canvasContext.drawImage(sick_face, 5, height - (emojiKeyPanelHeight * 1.4) - 10, sick_face.width * 0.08, sick_face.height * 0.08);
     canvasContext.drawImage(skull, 5, height - (emojiKeyPanelHeight * 0.4) - 10, skull.width * 0.08, skull.height * 0.08);
 
     //Write percentage stats to each graph
-    canvasContext.font = "11px Bogle";
+    canvasContext.textAlign = 'right';
+    canvasContext.font = "10px Bogle";
     canvasContext.fillStyle = "#1055b7";
-    canvasContext.fillText(percentTestingNegative + "% Saludable", 30, height - (emojiKeyPanelHeight * 2.35));
-    canvasContext.fillText(percentTestingPositive + "% Enfermos", 30, height - (emojiKeyPanelHeight * 1.35));
+    canvasContext.fillText(percentTestingNegative + "% Saludable", emojiKeyPanelWidth - 10, height - (emojiKeyPanelHeight * 2.35));
+    canvasContext.fillText(percentTestingPositive + "% Enfermos", emojiKeyPanelWidth - 10, height - (emojiKeyPanelHeight * 1.35));
     canvasContext.fillStyle = "white";
-    canvasContext.fillText(percentRecovered + "% Recuperado", 30, height - (emojiKeyPanelHeight * 3.35));
-    canvasContext.fillText(percentDead + "% Fallecido", 30, height - (emojiKeyPanelHeight * 0.35));
+    canvasContext.fillText(percentRecovered + "% Recuperado", emojiKeyPanelWidth - 10, height - (emojiKeyPanelHeight * 3.35));
+    canvasContext.fillText(percentDead + "% Fallecido", emojiKeyPanelWidth - 10, height - (emojiKeyPanelHeight * 0.35));
 
 }
 
@@ -193,17 +195,19 @@ function drawAllGraphs() {
             //Draw face icons for each graph
             canvasContext.drawImage(cured_face, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 0.125), cured_face.width * 0.08, cured_face.height * 0.08);
             canvasContext.drawImage(healthy_face, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1.125), healthy_face.width * 0.08, healthy_face.height * 0.08);
+            canvasContext.drawImage(mask, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1.125), healthy_face.width * 0.08, healthy_face.height * 0.08);
             canvasContext.drawImage(sick_face, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2.125), sick_face.width * 0.08, sick_face.height * 0.08);
             canvasContext.drawImage(skull, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3.125), skull.width * 0.08, skull.height * 0.08);
 
             //Write percentage stats to each graph
-            canvasContext.font = "11px Bogle";
+            canvasContext.textAlign = 'right';
+            canvasContext.font = "10px Bogle";
             canvasContext.fillStyle = "black";
-            canvasContext.fillText(allPercentTestingNegative[length - j] + "% Saludable", 30, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1.66));
-            canvasContext.fillText(allPercentTestingPositive[length - j] + "% Enfermos", 30, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2.66));
+            canvasContext.fillText(allPercentTestingNegative[length - j] + "% Saludable", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1.66));
+            canvasContext.fillText(allPercentTestingPositive[length - j] + "% Enfermos", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2.66));
             canvasContext.fillStyle = "white";
-            canvasContext.fillText(allPercentRecovered[length - j] + "% Recuperado", 30, graphPanelHeight * (j) + (emojiKeyPanelHeight * 0.66));
-            canvasContext.fillText(allPercentDead[length - j] + "% Fallecido", 30, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3.66));
+            canvasContext.fillText(allPercentRecovered[length - j] + "% Recuperado", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 0.66));
+            canvasContext.fillText(allPercentDead[length - j] + "% Fallecido", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3.66));
 
             //Draw lines to seperate graphs
             canvasContext.lineWidth = 1;
