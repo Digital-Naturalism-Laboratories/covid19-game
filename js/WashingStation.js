@@ -3,12 +3,10 @@ class WashingStation {
         this.x = x;
         this.y = y;
         this.radius = 20;
-
     }
 
     draw() {
-        canvasContext.font = "30px Arial";
-        canvasContext.textAlign = 'center';
-        canvasContext.fillText('🧼', this.x, this.y);
+        canvasContext.drawImage(soap, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
     }
+
 }

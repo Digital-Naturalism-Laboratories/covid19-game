@@ -1,15 +1,15 @@
 var toggleButtons = []
 
 class Button {
-    constructor(x, y, emoji, radius, fontSize, isToggle, startsEnabled) {
+    constructor(x, y, image, radius, fontSize, isToggle, startsEnabled) {
         this.x = x;
         this.y = y;
-        this.emoji = emoji;
+        this.image = image;
         this.radius = radius;
         this.fontSize = fontSize;
         this.isToggle = isToggle;
         this.isEnabled = startsEnabled;
-        this.bgColor = 'blue';
+        this.bgColor = '#009ada';
 
         if (this.isToggle) {
             toggleButtons.push(this);
@@ -17,11 +17,11 @@ class Button {
     }
 
     update() {
-        this.bgColor = this.isEnabled ? 'DarkOrange' : 'blue';
+        this.bgColor = this.isEnabled ? '#ed8300' : '#009ada';
 
         //the social distancing button is always blue
         if (this == buttonDistancing) {
-            this.bgColor = 'blue';
+            this.bgColor = '#1055b7';
         }
 
         if (buttonMasking.isEnabled == true) {
@@ -37,47 +37,21 @@ class Button {
         if (this.isToggle) {
             colorRect(this.x - (buttonPanelWidth / 2), this.y - (buttonPanelHeight / 2), buttonPanelWidth, buttonPanelHeight, this.bgColor);
             canvasContext.lineWidth = 2;
-            drawRect(this.x - (buttonPanelWidth / 2), this.y - (buttonPanelHeight / 2), buttonPanelWidth, buttonPanelHeight, 'black');
-        }
+            colorLine(canvas.width * 0.33, canvas.height - (graphPanelHeight + bannerHeight + buttonPanelHeight), canvas.width * 0.33, canvas.height - (graphPanelHeight + bannerHeight), 'white');
+            colorLine(canvas.width * 0.67, canvas.height - (graphPanelHeight + bannerHeight + buttonPanelHeight), canvas.width * 0.67, canvas.height - (graphPanelHeight + bannerHeight), 'white');
 
+            if (this.image == ruler) {
+                canvasContext.drawImage(this.image, this.x - 20, this.y - 25, 50, 50);
+            } else {
+                canvasContext.drawImage(this.image, this.x - 18, this.y - 18, 36, 36);
+            }
 
-        canvasContext.font = this.fontSize + "px Arial";
-        canvasContext.textAlign = 'center';
-
-        if (this == buttonDistancing) {
-            canvasContext.fillText(this.emoji, this.x - 25, this.y + 5);
-            canvasContext.fillStyle = "white";
-            canvasContext.font = "12px Arial";
-            canvasContext.fillText("Distanciamiento Social", this.x, this.y + 20);
-            canvasContext.font = this.fontSize + "px Arial";
-
-            if (this.isEnabled) { //draw social distancing "On" indicator
-
-                colorRect(this.x + 10, this.y - 16, 30, 20, "darkgreen");
-                colorCircle(this.x + 10, this.y - 6, 10, "darkgreen");
-                colorCircle(this.x + 10 + 30, this.y - 6, 10, "darkgreen");
-
-                canvasContext.font = "14px Arial";
-                canvasContext.fillStyle = "white";
-
-                //canvasContext.fillText("En", this.x + 17, this.y + 8);
-                colorCircle(this.x + 10 + 30, this.y - 6, 10, "lightgreen");
-
-            } else { //draw social distancing "Off" indicator
-
-                colorRect(this.x + 10, this.y - 16, 30, 20, "darkred");
-                colorCircle(this.x + 10, this.y - 6, 10, "darkred");
-                colorCircle(this.x + 10 + 30, this.y - 6, 10, "darkred");
-
-                canvasContext.font = "10px Arial";
-                canvasContext.fillStyle = "white";
-
-                //canvasContext.fillText("Apagada", this.x + 32, this.y + 8);
-                colorCircle(this.x + 10, this.y - 6, 10, "red");
+            if (this.image == healthy_face) {
+                canvasContext.drawImage(mask, this.x - 18, this.y - 18, 36, 36);
             }
 
         } else {
-            canvasContext.fillText(this.emoji, this.x, this.y + (this.radius * 0.17));
+            canvasContext.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
         }
 
     }
@@ -88,7 +62,7 @@ class Button {
             if (this.isToggle) {
 
                 if (yClick > canvas.height - (graphPanelHeight + bannerHeight + buttonPanelHeight) &&
-                    yClick <  canvas.height - (graphPanelHeight + bannerHeight)) {
+                    yClick < canvas.height - (graphPanelHeight + bannerHeight)) {
 
                     if (this == buttonMasking) {
                         this.isEnabled = true;
@@ -113,7 +87,6 @@ class Button {
                     gameState = gameStates.MAIN;
                     resetGame();
                 }
-
 
             }
 

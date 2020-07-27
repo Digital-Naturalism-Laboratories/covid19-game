@@ -16,8 +16,6 @@ var sims = [];
 var washingStations = [];
 var buttonPanelHeight = 50;
 var buttonPanelWidth = width / 3;
-var maskImage = document.createElement('img');
-var curveGraphImage = document.createElement('img');
 var scaleFactor;
 var aspectRatio;
 
@@ -43,23 +41,19 @@ window.onload = function () {
     canvas.width = width;
     canvas.height = height;
 
-    //load mask image
-    maskImage.src = 'images/mask.png';
-    curveGraphImage.src = 'images/curve-graph.png'
-
     initDisplayDimensions();
 
     resetGame();
 
-    buttonNext = new Button(width / 2, height * 0.95, '▶️', 50, 100, false, true);
-    buttonPlay = new Button(width / 2, height * 0.95, '▶️', 50, 100, false, true);
-    buttonReplay = new Button(width / 2, height * 0.95, '🔄', 50, 100, false, true);
+    buttonNext = new Button(width / 2, height * 0.665, null, 64, 100, false, true);
+    buttonPlay = new Button(width / 2 - 1.5, height * 0.88, null, 39, 100, false, true);
+    buttonReplay = new Button(width / 2, height * 0.87, restart_icon, 40, 100, false, true);
 
-    buttonMasking = new Button(width * (1 / 6), height - graphPanelHeight - bannerHeight - (buttonPanelHeight / 2), '😷', (buttonPanelWidth / 2), 30, true, true);
-    buttonWashing = new Button(width * (3 / 6), height - graphPanelHeight - bannerHeight - (buttonPanelHeight / 2), '🧼', (buttonPanelWidth / 2), 30, true, false);
-    buttonDistancing = new Button(width * (5 / 6), height - graphPanelHeight - bannerHeight - (buttonPanelHeight / 2), '📏', (buttonPanelWidth / 2), 30, true, false);
+    buttonMasking = new Button(width * (1 / 6), height - graphPanelHeight - bannerHeight - (buttonPanelHeight / 2), healthy_face, (buttonPanelWidth / 2), 30, true, true);
+    buttonWashing = new Button(width * (3 / 6), height - graphPanelHeight - bannerHeight - (buttonPanelHeight / 2), soap, (buttonPanelWidth / 2), 30, true, false);
+    buttonDistancing = new Button(width * (5 / 6), height - graphPanelHeight - bannerHeight - (buttonPanelHeight / 2), ruler, (buttonPanelWidth / 2), 30, true, false);
 
-    initRenderLoop();
+    loadImages();
 }
 
 function initRenderLoop() {
@@ -105,72 +99,13 @@ function drawEverything() {
     switch (gameState) {
         case 'start':
 
-            canvasContext.textAlign = 'center';
-
-            canvasContext.font = "36px Arial";
-            canvasContext.fillStyle = "black";
-            canvasContext.drawImage(curveGraphImage, 0, height * 0.25, curveGraphImage.width, curveGraphImage.height);
-            canvasContext.fillText("APLANA LA CURVA:", width * 0.5, height * 0.27);
-            canvasContext.fillText("UNA CARITA A LA VEZ", width * 0.5, height * 0.46);
-
-            buttonNext.draw();
+            canvasContext.drawImage(title_screen, 0, 0, canvas.width, canvas.height);
 
             break;
         case 'instructions':
-            canvasContext.font = "12px Arial";
-            canvasContext.fillStyle = "black";
-            canvasContext.textAlign = 'center';
 
-            //draw instructions for clicking on sick sims.
-            canvasContext.fillText("Haz click sobre la carita enferma para", width * 0.50, height * 0.03);
-            canvasContext.fillText("ponerle mascarilla y evitar el contagio.", width * 0.50, height * 0.06);
-            canvasContext.textAlign = 'center';
-            canvasContext.font = "80px Arial";
-            canvasContext.fillText("🤢", width * 0.30, height * 0.18);
-            canvasContext.fillText("🤢", width * 0.70, height * 0.18);
-            canvasContext.drawImage(maskImage, (width * 0.73) - (maskImage.width / 2), (height * 0.12), maskImage.width * 0.8, maskImage.height * 0.8);
-            canvasContext.font = "40px Arial";
-            canvasContext.fillText("👉", width * 0.50, height * 0.14);
+            canvasContext.drawImage(instructions_screen, 0, 0, canvas.width, canvas.height);
 
-            //draw instructions for clicking on healthy sims.
-            canvasContext.font = "12px Arial";
-            canvasContext.fillStyle = "black";
-            canvasContext.textAlign = 'center';
-            canvasContext.fillText("Haz click sobre la carita saludable para", width * 0.50, height * 0.23);
-            canvasContext.fillText("ponerle mascarilla y protegerla del contagio.", width * 0.50, height * 0.26);
-            canvasContext.textAlign = 'center';
-            canvasContext.font = "80px Arial";
-            canvasContext.fillText("🙂", width * 0.30, height * 0.38);
-            canvasContext.fillText("🙂", width * 0.70, height * 0.38);
-            canvasContext.drawImage(maskImage, (width * 0.73) - (maskImage.width / 2), (height * 0.32), maskImage.width * 0.8, maskImage.height * 0.8);
-            canvasContext.font = "40px Arial";
-            canvasContext.fillText("👉", width * 0.50, height * 0.34);
-
-            //draw instructions for clicking on washing stations.
-            canvasContext.font = "14px Arial";
-            canvasContext.fillStyle = "black";
-            canvasContext.textAlign = 'center';
-            canvasContext.fillText("Haz click sobre el jabón para introducir estaciones", width * 0.50, height * 0.43);
-            canvasContext.fillText("de lavado para que las caritas se laven las manos.", width * 0.50, height * 0.46);
-            canvasContext.textAlign = 'center';
-            canvasContext.font = "80px Arial";
-            canvasContext.fillText("🧼", width * 0.70, height * 0.58);
-            canvasContext.font = "40px Arial";
-            canvasContext.fillText("👉", width * 0.50, height * 0.54);
-
-            //draw instructions for clicking on social distancing.
-            canvasContext.font = "14px Arial";
-            canvasContext.fillStyle = "black";
-            canvasContext.textAlign = 'center';
-            canvasContext.fillText("Haz click en el símbolo de la regla para introducirla entre las", width * 0.50, height * 0.63);
-            canvasContext.fillText("caritas y así mantengan una distancia de 2 m entre cada una.", width * 0.50, height * 0.66);
-            canvasContext.textAlign = 'center';
-            canvasContext.font = "80px Arial";
-            canvasContext.fillText("📏", width * 0.70, height * 0.78);
-            canvasContext.font = "40px Arial";
-            canvasContext.fillText("👉", width * 0.50, height * 0.74);
-
-            buttonPlay.draw();
             break;
         case 'main':
 
@@ -184,7 +119,7 @@ function drawEverything() {
                 sim.draw();
             }
 
-            colorRect(emojiKeyPanelWidth, height - graphPanelHeight, graphPanelWidth, graphPanelHeight, 'Gainsboro');
+            colorRect(emojiKeyPanelWidth, height - graphPanelHeight, graphPanelWidth, graphPanelHeight, 'white');
             drawGraph();
             drawBanner();
 

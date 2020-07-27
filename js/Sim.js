@@ -27,23 +27,19 @@ class Sim {
         this.collitionTimeDuration = 20; //measured in frames
         this.collisionTimer = this.collitionTimeDuration; //measured in frames
         this.asymptomatic = Math.random() < 0.1 ? true : false;
+        this.image;
     }
 
     draw() {
 
-        //draw sim emoji
-        canvasContext.font = "16px Arial";
-        canvasContext.textAlign = 'center';
-        canvasContext.fillText(this.emoji, this.x, this.y + (this.radius * 0.75));
+        canvasContext.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
 
         //draw masks and/or soap icon on top of sim emoji
         if (this.isMasking && !this.condition.DEAD) {
-            canvasContext.drawImage(maskImage, this.x - 7.8, this.y - 0.9, maskImage.width * 0.13, maskImage.height * 0.13);
+            canvasContext.drawImage(mask, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
         }
         if (this.isWashing && !this.condition.DEAD) {
-            canvasContext.font = "10px Arial";
-            canvasContext.textAlign = 'center';
-            canvasContext.fillText('🧼', this.x + 10, this.y + 10);
+            canvasContext.drawImage(soap, this.x, this.y, 10, 10);
         }
 
     }
@@ -52,7 +48,7 @@ class Sim {
 
         //draw the transmission radius if the sim is positive
         if (this.condition == conditions.POSITIVE) {
-            colorCircle(this.x, this.y, this.transmissionRadius, 'green');
+            colorCircle(this.x, this.y, this.transmissionRadius, '#cae952');
         }
 
     }
@@ -62,12 +58,12 @@ class Sim {
         switch (this.condition) {
             case "negative":
 
-                this.emoji = "🙂";
+                this.image = healthy_face;
                 negativeCount++;
 
                 //chance for recovered sims to die if hospitials over capacity
                 if (isOverCapacity) {
-                    if (Math.random() < 0.00005  * deathRateMultiplier) {
+                    if (Math.random() < 0.00005 * deathRateMultiplier) {
                         this.condition = conditions.DEAD;
                     }
                 }
@@ -75,7 +71,7 @@ class Sim {
 
             case "positive":
 
-                this.emoji = this.asymptomatic ? "🙂" : "🤢";
+                this.image = this.asymptomatic ? healthy_face : sick_face;
                 positiveCount++;
 
                 //countdown until a positive sim is recovered
@@ -85,19 +81,19 @@ class Sim {
                 }
 
                 //chance each frame of a positive sim dying before recovering
-                if (Math.random() < 0.00005  * deathRateMultiplier) {
+                if (Math.random() < 0.00005 * deathRateMultiplier) {
                     this.condition = conditions.DEAD;
                 }
                 break;
 
             case "recovered":
 
-                this.emoji = "😁";
+                this.image = cured_face;
                 recoveredCount++;
 
                 //chance for recovered sims to die if hospitials over capacity
                 if (isOverCapacity) {
-                    if (Math.random() < 0.00005  * deathRateMultiplier) {
+                    if (Math.random() < 0.00005 * deathRateMultiplier) {
                         this.condition = conditions.DEAD;
                     }
                 }
@@ -106,7 +102,7 @@ class Sim {
 
             case "dead":
 
-                this.emoji = "💀";
+                this.image = skull;
                 this.isMasking = false;
                 this.isWashing = false;
                 deadCount++;
@@ -192,7 +188,7 @@ class Sim {
 
         this.ySpeed = Math.random() < 0.5 ? (Math.random() * -this.speed) : (Math.random() * this.speed);
         this.xSpeed = Math.random() < 0.5 ? (Math.random() * -this.speed) : (Math.random() * this.speed);
-        
+
         //reset collision timer
         this.collisionTimer = this.collitionTimeDuration;
 
