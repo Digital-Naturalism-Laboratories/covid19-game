@@ -248,6 +248,6 @@ function drawBanner() {
         canvasContext.textAlign = 'center';
         canvasContext.font = "14px Bogle";
         canvasContext.fillStyle = "white";
-        canvasContext.fillText("¡Aplane la curva enmascarando, lavando y distanciando!", width / 2, height - graphPanelHeight - (bannerHeight * 0.30));
+        canvasContext.fillText("¡Aplana la curva enmascarando, lavando y distanciando!", width / 2, height - graphPanelHeight - (bannerHeight * 0.30));
     }
 }
