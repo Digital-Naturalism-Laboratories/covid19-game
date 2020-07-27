@@ -23,7 +23,7 @@ var allPositiveGraphData = [];
 var allRecoveredGraphData = [];
 var allDeadGraphData = [];
 
-var framesPerGraphIncrement = 8; //15
+var framesPerGraphIncrement = 15;
 var graphIncrementTimer = framesPerGraphIncrement;
 
 var isOverCapacity = false;
