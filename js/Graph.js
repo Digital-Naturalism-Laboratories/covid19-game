@@ -181,10 +181,10 @@ function drawAllGraphs() {
 
             //Write Capacidad Hospitalaria on capacity threshold line
             canvasContext.textAlign = 'left';
-            canvasContext.font = "10px Bogle";
+            canvasContext.font = "12px Bogle";
             canvasContext.fillStyle = "#1055b7";
-            //canvasContext.fillText("Capacidad", emojiKeyPanelWidth + 3, thresholdLineY - 2);
-            //canvasContext.fillText("Hospitalaria", emojiKeyPanelWidth + 3, thresholdLineY + 8);
+            canvasContext.fillText("Capacidad", emojiKeyPanelWidth + 3, thresholdLineY - 2);
+            canvasContext.fillText("Hospitalaria", emojiKeyPanelWidth + 3, thresholdLineY + 8);
 
             //Write attempt number on each graph
             canvasContext.font = "16px Bogle";
