@@ -19,7 +19,7 @@ class Button {
     update() {
 
         if (this == buttonDistancing) {
-            this.bgColor = this.isEnabled ? '#ed8300' : '#1055b7';
+            this.bgColor = '#1055b7';
         } else {
             this.bgColor = this.isEnabled ? '#ed8300' : '#009ada';
         }
@@ -41,7 +41,28 @@ class Button {
             colorLine(canvas.width * 0.67, canvas.height - (graphPanelHeight + bannerHeight + buttonPanelHeight), canvas.width * 0.67, canvas.height - (graphPanelHeight + bannerHeight), 'white');
 
             if (this.image == ruler) {
-                canvasContext.drawImage(this.image, this.x - 20, this.y - 25, 50, 50);
+                canvasContext.drawImage(this.image, this.x - 55, this.y - 32, 50, 50);
+
+                canvasContext.fillStyle = "white";
+                canvasContext.font = "12px Bogle";
+                canvasContext.fillText("Distanciamiento Social", this.x, this.y + 20);
+
+                if (this.isEnabled) { //draw social distancing "On" indicator
+
+                    colorRect(this.x + 12, this.y - 16, 30, 20, "darkgreen");
+                    colorCircle(this.x + 12, this.y - 6, 10, "darkgreen");
+                    colorCircle(this.x + 12 + 30, this.y - 6, 10, "darkgreen");
+
+                    colorCircle(this.x + 12 + 30, this.y - 5, 8, "lightgreen");
+
+                } else { //draw social distancing "Off" indicator
+
+                    colorRect(this.x + 12, this.y - 16, 30, 20, "darkred");
+                    colorCircle(this.x + 12, this.y - 6, 10, "darkred");
+                    colorCircle(this.x + 12 + 30, this.y - 6, 10, "darkred");
+
+                    colorCircle(this.x + 12, this.y - 5, 8, "red");
+                }
             } else {
                 canvasContext.drawImage(this.image, this.x - 18, this.y - 18, 36, 36);
             }
