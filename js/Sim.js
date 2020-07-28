@@ -121,7 +121,7 @@ class Sim {
 
         //set transmission radius based on isMasking and isWashing
         this.transmissionRadius = this.isMasking ? baseTransmissionRadius * 0.40 : baseTransmissionRadius;
-        this.transmissionRadius = this.isWashing ? this.transmissionRadius * 0.80 : this.transmissionRadius
+        this.transmissionRadius = this.isWashing ? this.transmissionRadius * 0.90 : this.transmissionRadius
 
         //save the position of where the sim will be next frame for collision calculations
         this.xNextFrame = this.x + this.xSpeed;
