@@ -91,14 +91,19 @@ function drawGraph() {
 
     for (var i = 0; i < negativeGraphData.length; i++) {
 
+        var deadLineStart = height;
+        var deadLineEnd = deadLineStart - deadGraphData[i];
+        var posLineStart = deadLineEnd;
+        var posLineEnd = posLineStart - positiveGraphData[i];
+
         var thresholdLineY = height - (graphPanelHeight * capacityThreshold);
-        var posLineEnd = height - deadGraphData[i] - positiveGraphData[i];
 
         //Draw line graph
+        colorLine(i + emojiKeyPanelWidth, deadLineStart, i + emojiKeyPanelWidth, deadLineEnd, '#12305c');
+        colorLine(i + emojiKeyPanelWidth, posLineStart, i + emojiKeyPanelWidth, posLineEnd, '#cae952');
+
         if (canvas.height - (graphPanelHeight * capacityThreshold) > posLineEnd) {
             colorLine(i + emojiKeyPanelWidth, canvas.height - graphPanelHeight * capacityThreshold, i + emojiKeyPanelWidth, posLineEnd, '#ff451a');
-        } else {
-            colorCircle(i + emojiKeyPanelWidth, posLineEnd + 2, 2, '#ffe31a');
         }
 
     }
@@ -152,77 +157,82 @@ function drawAllGraphs() {
 
             var length = allNegativeGraphData.length;
 
-            var posLineEnd = graphPanelHeight * (j + 1) - allDeadGraphData[length - j][i] - allPositiveGraphData[length - j][i];
+            var deadLineStart = graphPanelHeight * (j + 1);
+            var deadLineEnd = deadLineStart - allDeadGraphData[length - j][i];
+            var posLineStart = deadLineEnd;
+            var posLineEnd = posLineStart - allPositiveGraphData[length - j][i];
+
             var thresholdLineY = ((j + 1) * graphPanelHeight) - (graphPanelHeight * capacityThreshold);
             var graphBottomY = (j + 1) * graphPanelHeight;
 
             //Draw line graph
+            colorLine(i + emojiKeyPanelWidth, deadLineStart, i + emojiKeyPanelWidth, deadLineEnd, '#12305c');
+            colorLine(i + emojiKeyPanelWidth, posLineStart, i + emojiKeyPanelWidth, posLineEnd, '#cae952');
+
             if (((j + 1) * graphPanelHeight) - (graphPanelHeight * capacityThreshold) > posLineEnd) {
-                colorLine(i + emojiKeyPanelWidth, thresholdLineY, i + emojiKeyPanelWidth, posLineEnd, '#ff451a'); //(graphPanelHeight * (j)) +
-            } else {
-                colorCircle(i + emojiKeyPanelWidth, posLineEnd, 2, '#ffe31a');
+                colorLine(i + emojiKeyPanelWidth, thresholdLineY, i + emojiKeyPanelWidth, posLineEnd, '#ff451a');
             }
 
-            //Draw emoji color key panel backgrounds
-            colorRect(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 0), emojiKeyPanelWidth, emojiKeyPanelHeight, '#ed8300');
-            colorRect(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1), emojiKeyPanelWidth, emojiKeyPanelHeight, '#ffe31a');
-            colorRect(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2), emojiKeyPanelWidth, emojiKeyPanelHeight, '#cae952');
-            colorRect(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3), emojiKeyPanelWidth, emojiKeyPanelHeight, '#12305c');
-
-            //Draw lines seperating emoji key panels
-            canvasContext.lineWidth = 2;
-            colorLine(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1), emojiKeyPanelWidth, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1), "white");
-            colorLine(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2), emojiKeyPanelWidth, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2), "white");
-            colorLine(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3), emojiKeyPanelWidth, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3), "white");
-
-            //Draw hospital capacity threshold line
-            canvasContext.lineWidth = 1;
-            colorLine(emojiKeyPanelWidth, thresholdLineY, width, thresholdLineY, '#009ada');
-
-            //Write Capacidad Hospitalaria on capacity threshold line
-            canvasContext.textAlign = 'left';
-            canvasContext.font = "12px Bogle";
-            canvasContext.fillStyle = "#1055b7";
-            canvasContext.fillText("Capacidad", emojiKeyPanelWidth + 3, thresholdLineY - 2);
-            canvasContext.fillText("Hospitalaria", emojiKeyPanelWidth + 3, thresholdLineY + 8);
-
-            //Write attempt number on each graph
-            canvasContext.font = "16px Bogle";
-            canvasContext.textAlign = 'left';
-            canvasContext.fillStyle = "black";
-            canvasContext.fillText(allNegativeGraphData.length - (j - 1), emojiKeyPanelWidth + 8, 20 + ((j) * graphPanelHeight));
-
-            //Draw face icons for each graph
-            canvasContext.drawImage(cured_face, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 0.125), cured_face.width * 0.08, cured_face.height * 0.08);
-            canvasContext.drawImage(healthy_face, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1.125), healthy_face.width * 0.08, healthy_face.height * 0.08);
-            canvasContext.drawImage(mask, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1.125), healthy_face.width * 0.08, healthy_face.height * 0.08);
-            canvasContext.drawImage(sick_face, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2.125), sick_face.width * 0.08, sick_face.height * 0.08);
-            canvasContext.drawImage(skull, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3.125), skull.width * 0.08, skull.height * 0.08);
-
-            //Write percentage stats to each graph
-            canvasContext.textAlign = 'right';
-            canvasContext.font = "10px Bogle";
-            canvasContext.fillStyle = "black";
-            canvasContext.fillText(allPercentTestingNegative[length - j] + "% Saludable", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1.66));
-            canvasContext.fillText(allPercentTestingPositive[length - j] + "% Enfermos", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2.66));
-            canvasContext.fillStyle = "white";
-            canvasContext.fillText(allPercentRecovered[length - j] + "% Recuperado", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 0.66));
-            canvasContext.fillText(allPercentDead[length - j] + "% Fallecido", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3.66));
-
-            //Draw lines to seperate graphs
-            canvasContext.lineWidth = 1;
-            colorLine(0, graphBottomY, width, graphBottomY, 'black');
-
-            //Draw TOTAL Header
-            colorRect(0, 0, canvas.width, graphPanelHeight, '#0643b4');
-            canvasContext.font = "24px Bogle";
-            canvasContext.fillStyle = 'white';
-            canvasContext.textAlign = 'center';
-            canvasContext.fillText("TOTAL", canvas.width / 2, graphPanelHeight / 2);
-
         }
+        
+        //Draw emoji color key panel backgrounds
+        colorRect(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 0), emojiKeyPanelWidth, emojiKeyPanelHeight, '#ed8300');
+        colorRect(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1), emojiKeyPanelWidth, emojiKeyPanelHeight, '#ffe31a');
+        colorRect(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2), emojiKeyPanelWidth, emojiKeyPanelHeight, '#cae952');
+        colorRect(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3), emojiKeyPanelWidth, emojiKeyPanelHeight, '#12305c');
+
+        //Draw lines seperating emoji key panels
+        canvasContext.lineWidth = 2;
+        colorLine(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1), emojiKeyPanelWidth, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1), "white");
+        colorLine(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2), emojiKeyPanelWidth, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2), "white");
+        colorLine(0, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3), emojiKeyPanelWidth, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3), "white");
+
+        //Write attempt number on each graph
+        canvasContext.font = "16px Bogle";
+        canvasContext.textAlign = 'left';
+        canvasContext.fillStyle = "black";
+        canvasContext.fillText(allNegativeGraphData.length - (j - 1), emojiKeyPanelWidth + 8, 20 + ((j) * graphPanelHeight));
+
+        //Draw face icons for each graph
+        canvasContext.drawImage(cured_face, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 0.125), cured_face.width * 0.08, cured_face.height * 0.08);
+        canvasContext.drawImage(healthy_face, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1.125), healthy_face.width * 0.08, healthy_face.height * 0.08);
+        canvasContext.drawImage(mask, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1.125), healthy_face.width * 0.08, healthy_face.height * 0.08);
+        canvasContext.drawImage(sick_face, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2.125), sick_face.width * 0.08, sick_face.height * 0.08);
+        canvasContext.drawImage(skull, 5, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3.125), skull.width * 0.08, skull.height * 0.08);
+
+        //Write percentage stats to each graph
+        canvasContext.textAlign = 'right';
+        canvasContext.font = "10px Bogle";
+        canvasContext.fillStyle = "black";
+        canvasContext.fillText(allPercentTestingNegative[length - j] + "% Saludable", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 1.66));
+        canvasContext.fillText(allPercentTestingPositive[length - j] + "% Enfermos", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 2.66));
+        canvasContext.fillStyle = "white";
+        canvasContext.fillText(allPercentRecovered[length - j] + "% Recuperado", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 0.66));
+        canvasContext.fillText(allPercentDead[length - j] + "% Fallecido", emojiKeyPanelWidth - 10, graphPanelHeight * (j) + (emojiKeyPanelHeight * 3.66));
+
+        //Draw lines to seperate graphs
+        canvasContext.lineWidth = 1;
+        colorLine(0, graphBottomY, width, graphBottomY, 'black');
+
+        //Draw hospital capacity threshold line
+        canvasContext.lineWidth = 1;
+        colorLine(emojiKeyPanelWidth, thresholdLineY, width, thresholdLineY, '#009ada');
+
+        //Write Capacidad Hospitalaria on capacity threshold line
+        canvasContext.textAlign = 'left';
+        canvasContext.font = "10px Bogle";
+        canvasContext.fillStyle = "#1055b7";
+        canvasContext.fillText("Capacidad", emojiKeyPanelWidth + 3, thresholdLineY - 2);
+        canvasContext.fillText("Hospitalaria", emojiKeyPanelWidth + 3, thresholdLineY + 8);
 
     }
+
+    //Draw TOTAL Header
+    colorRect(0, 0, canvas.width, graphPanelHeight, '#0643b4');
+    canvasContext.font = "24px Bogle";
+    canvasContext.fillStyle = 'white';
+    canvasContext.textAlign = 'center';
+    canvasContext.fillText("TOTAL", canvas.width / 2, graphPanelHeight / 2);
 
     //Draw white rectangle to block out all but the top four most recent graphs
     colorRect(0, graphPanelHeight * 5, width, height - (graphPanelHeight * 5), 'white');
