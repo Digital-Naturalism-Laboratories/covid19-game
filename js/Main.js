@@ -60,6 +60,8 @@ function initRenderLoop() {
     var framesPerSecond = 60;
     setInterval(function () {
 
+        window.addEventListener('resize', initDisplayDimensions());
+
         moveEverything();
         drawEverything();
 
@@ -184,6 +186,8 @@ function initDisplayDimensions() {
         document.body.style.height = window.innerHeight + "px";
         document.getElementById("gameCanvas").style.minHeight = window.innerHeight + "px";
         document.getElementById("gameCanvas").style.maxHeight = window.innerHeight + "px";
+        document.getElementById("gameCanvas").style.minWidth = window.innerHeight * (canvas.width / canvas.height) + "px";
+        document.getElementById("gameCanvas").style.maxWidth = window.innerHeight * (canvas.width / canvas.height) + "px";
 
     } else { //if portrait
 
@@ -195,13 +199,22 @@ function initDisplayDimensions() {
             document.body.style.height = window.innerHeight + "px";
             document.getElementById("gameCanvas").style.minHeight = window.innerHeight + "px";
             document.getElementById("gameCanvas").style.maxHeight = window.innerHeight + "px";
+
+            document.body.style.width = window.innerHeight * (canvas.width / canvas.height) + "px";
+            document.getElementById("gameCanvas").style.minWidth = window.innerHeight * (canvas.width / canvas.height) + "px";
+            document.getElementById("gameCanvas").style.maxWidth = window.innerHeight * (canvas.width / canvas.height) + "px";
         } else {
             scaleFactor = width / window.innerWidth;
             document.documentElement.style.width = window.innerWidth + "px";
             document.body.style.width = window.innerwidth + "px";
             document.getElementById("gameCanvas").style.minWidth = window.innerWidth + "px";
             document.getElementById("gameCanvas").style.maxWidth = window.innerWidth + "px";
+
+            document.body.style.height = window.innerWidth * (canvas.height / canvas.width) + "px";
+            document.getElementById("gameCanvas").style.minHeight = window.innerWidth * (canvas.height / canvas.width) + "px";
+            document.getElementById("gameCanvas").style.maxHeight = window.innerWidth * (canvas.height / canvas.width) + "px";
         }
 
     }
+
 }
